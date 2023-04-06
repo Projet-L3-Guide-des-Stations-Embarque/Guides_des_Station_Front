@@ -18,6 +18,8 @@ function Home()
             <button onClick={() => setNumber(number + 1)}>Incrémenter</button>
             <p className={'paragraph-base ' + ((number > 5) ? 'paragraph-red' : 'paragraph-green')}>{number}</p>
             <Link to="/apropos">A propos</Link>
+            <br/>
+            <Link to="/tutoriel">Tutoriel pour KML</Link>
         </>
     )
 }
