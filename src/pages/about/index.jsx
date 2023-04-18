@@ -4,7 +4,8 @@ function About()
 {
     return(
         <>
-         <p>salut</p>
+         <p>Site Web pour la génération et l'utilisation des Guides de Stations Embarqués.</p>
+         <p>CMIndustries ©</p>
          <Link to="/">Home</Link>
         </>
     )
