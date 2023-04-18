@@ -4,8 +4,14 @@ function Tuto()
 {
     return(
         <>
-         <p>Tutoriel pour fichier KML ici</p>
-         <Link to="/">Home</Link>
+            <div className="topnav">
+                <Link to="/">Accueil</Link>
+                <Link to="/apropos">A propos</Link>
+                <Link to="/questions">Générer les questions</Link>
+                <Link to="/stations">Générer les pages des stations</Link>
+                <Link to="/tutoriel" className="active">Tutoriel pour KML</Link>
+            </div>
+            <p>Tutoriel pour fichier KML ici</p>
         </>
     )
 }

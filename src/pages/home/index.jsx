@@ -20,7 +20,6 @@ function Home()
                 <Link to="/stations">Générer les pages des stations</Link>
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
             </div>
-            <h1>Home</h1>
             
             <button onClick={() => setNumber(number + 1)}>Incrémenter</button>
             {(number > 5) && <p>super paragraphe</p>}
