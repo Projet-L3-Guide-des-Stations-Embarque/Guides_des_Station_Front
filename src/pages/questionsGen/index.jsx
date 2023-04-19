@@ -4,17 +4,28 @@ import { Link } from "react-router-dom"
 function Questions()
 {
     const [inputFields, setInputFields] = useState([
-        { question: '', oui: '', non: '' }
+        { id:'0', question: '', fin:false, idoui: '', idnon: '' }
     ])
     
     const handleFormChange = (index, event) => {
         let data = [...inputFields];
+        data[index]["id"] = index;
         data[index][event.target.name] = event.target.value;
         setInputFields(data);
     }
 
+    const handleCheckBoxChange = (index, event) => {
+        let data = [...inputFields];
+        data[index][event.target.name] = event.target.checked;
+        setInputFields(data);
+        if (event.target.checked) {
+            data[index]["idoui"] = "";
+            data[index]["idnon"] = "";
+        }
+    }
+
     const addFields = () => {
-        let newfield = { question: '', oui: '', non: '' }
+        let newfield = {id:'', question: '', fin:false, idoui: '', idnon: '' }
     
         setInputFields([...inputFields, newfield])
     }
@@ -52,22 +63,32 @@ function Questions()
                             value={input.question}
                             onChange={event => handleFormChange(index, event)}
                         />
-                        <div className='formulaireOuiNon'>
+                        <div className='formulairefin'>
+                            <label>Fin de chemin : </label>
                             <input
-                                name='oui'
-                                type='number'
-                                placeholder='Oui'
-                                value={input.oui}
-                                onChange={event => handleFormChange(index, event)}
-                            />
-                            <input
-                                name='non'
-                                type='number'
-                                placeholder='Non'
-                                value={input.non}
-                                onChange={event => handleFormChange(index, event)}
+                                name='fin'
+                                type='checkbox'
+                                placeholder='fin'
+                                value={input.fin}
+                                onChange={event => handleCheckBoxChange(index, event)}
                             />
                         </div>
+                        {(!input.fin) && <div className='formulaireOuiNon'>
+                            <input
+                                name='idoui'
+                                type='number'
+                                placeholder='idoui'
+                                value={input.idoui}
+                                onChange={event => handleFormChange(index, event)}
+                            />
+                            <input
+                                name='idnon'
+                                type='number'
+                                placeholder='idnon'
+                                value={input.idnon}
+                                onChange={event => handleFormChange(index, event)}
+                            />
+                        </div>}
                         <button onClick={() => removeFields(index)}>Supprimer</button>
                         </div>
                     )
