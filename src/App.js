@@ -1,7 +1,6 @@
 import Home from './pages/home'
 import About from './pages/about'
 import Tuto from './pages/tuto'
-//import questionsGen et stationsGen
 import Questions from './pages/questionsGen'
 import Stations from './pages/stationsGen'
 import './styles/main.css'
