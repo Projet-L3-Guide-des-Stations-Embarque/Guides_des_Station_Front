@@ -14,16 +14,18 @@ function addTextElement(){
 function Stations()
 {
     const [formSectionField, setFormSectionField] = useState([
-        {section:"", textElement:[], imageElement:[]}
+        {section:"", textElement:"", imageElement:""}
     ])
 
-    const handleFormChange = (e) => {
-        const updatedFormSectionField = [...formSectionField];
-        updatedFormSectionField[e.target.dataset.idx][e.target.className] = e.target.value;
-        setFormSectionField(updatedFormSectionField);
+    const handleFormChange = (index, event) => {
+        let data = [...formSectionField];
+        console.log(event.target.value);
+        data[index][event.target.name] = event.target.value;
+        setFormSectionField(data);
     }
+
     const addSection = () => {
-        let object ={section:"", textElement:[], imageElement:[]}
+        let object ={section:"", textElement:"", imageElement:""}
 
         setFormSectionField([...formSectionField, object]);
     }
@@ -32,6 +34,18 @@ function Stations()
         e.target.parentNode.remove();
     }
 
+    const removeTextElement = (e) => {
+        e.target.parentNode.remove();
+    }
+
+    const removeImageElement = (e) => {
+        e.target.parentNode.remove();
+    }
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        console.log(formSectionField);
+    }
 
     return(
         <>
@@ -45,16 +59,20 @@ function Stations()
             {/* <p>Page pour générer les pages des Stations</p> */}
             <center>
             <div className="page">
-                <form>
+                <form onSubmit={submitForm}>
                 {formSectionField.map((val, idx) => {
                     return(
-                        <div className="section">
-                            <input type="text" placeholder="Nom de la section" />
+                        <div key={idx} className="section">
+                            <input type="text" name="section" placeholder="Nom de section" value={val.section} onChange={event => handleFormChange(idx,event)}/>
                             <div className="textElement">
-                                <textarea placeholder="Texte" />
+                                <textarea name="textElement" placeholder="Texte" value={val.textElement} onChange={event =>handleFormChange(idx,event)}/>
+                                <br/>
+                                <button onClick={removeTextElement}>Supprimer</button>
                             </div>
                             <div className="imageElement">
-                                <input type="file" placeholder="Image" multiple accept="image/*"/>
+                                <input type="file" name="imageElement" placeholder="Image" value={val.imageElement} multiple accept="image/*" onChange={event => handleFormChange(idx,event)}/>
+                                <br/>
+                                <button onClick={removeImageElement}>Supprimer</button>
                             </div>
                             <button onClick={removeSection}>Supprimer la section</button>
                         </div>
@@ -63,7 +81,7 @@ function Stations()
                 </form>
                 <button onClick={addSection}>Ajouter une section</button>
                 </div>
-                <button className="validateButton">Valider</button>
+                <button onClick={submitForm} className="validateButton">Valider</button>
             </center>
         </>
     )
