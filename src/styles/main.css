@@ -36,3 +36,36 @@
     background-color: #04AA6D;
     color: white;
   }
+
+.section {
+	border : solid black 2px;
+	padding: 1vw;
+	margin : 1vw;
+	background-color: rgba(255, 255, 200, 1.0);
+}
+.page {
+	width: 100vh;
+	margin: 10vh;
+}
+.textElement {
+	border : solid black 1px;
+	padding: 1vw;
+	margin : 1vw;
+	background-color: rgba(255, 200, 200, 1.0);
+}
+
+.imageElement {
+	border : solid black 1px;
+	padding: 1vw;
+	margin : 1vw;
+	background-color: rgba(200, 255, 200, 1.0);
+}
+
+.buttonElement {
+    margin : 1vw;
+}
+
+.validateButton {
+    background-color : #1ed760;
+    
+}
