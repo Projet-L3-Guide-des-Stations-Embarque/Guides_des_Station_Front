@@ -15,16 +15,18 @@ function Home()
         <>
             <div className="topnav">
                 <Link to="/" className="active">Accueil</Link>
-                <Link to="/apropos">A propos</Link>
                 <Link to="/questions">Générer les questions</Link>
                 <Link to="/stations">Générer les pages des stations</Link>
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
+                <Link to="/apropos">A propos</Link>
             </div>
-            
-            {/* <button onClick={() => setNumber(number + 1)}>Incrémenter</button>
-            {(number > 5) && <p>super paragraphe</p>}
-            <p className={'paragraph-base ' + ((number > 5) ? 'paragraph-red' : 'paragraph-green')}>{number}</p> */}
-            <p>Bienvenue sur le site de génération des Guides de Stations Forestières embarquées.</p>
+
+            <div className="content">
+                <p>
+                    Pour créer un guide vous pouvez <Link to="/questions">Générer les questions</Link> ainsi que <Link to="/stations">Générer les pages des stations</Link>.
+                </p>
+            </div>
+
         </>
     )
 }

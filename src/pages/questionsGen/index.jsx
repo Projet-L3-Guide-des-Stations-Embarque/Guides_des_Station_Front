@@ -54,12 +54,12 @@ function Questions()
         <>
             <div className="topnav">
                 <Link to="/">Accueil</Link>
-                <Link to="/apropos">A propos</Link>
                 <Link to="/questions" className="active">Générer les questions</Link>
                 <Link to="/stations">Générer les pages des stations</Link>
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
+                <Link to="/apropos">A propos</Link>
             </div>
-            <p>Page pour générer les questions</p>
+            <h2 className="catchPhrase">Vous pouvez ici générer la clé de determination des stations à l'aide de questions.</h2>
             <div className="App">
                 <form>
                     {inputFields.map((input, index) => {

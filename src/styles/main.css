@@ -131,6 +131,14 @@
     align-items: center;
 }
 
+.catchPhrase {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 button {
     border: 1px solid #04AA6D;
     border-radius: 5px;
