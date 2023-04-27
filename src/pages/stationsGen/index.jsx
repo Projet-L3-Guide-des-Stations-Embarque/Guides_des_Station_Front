@@ -45,6 +45,13 @@ function Stations()
     const submitForm = (e) => {
         e.preventDefault();
         console.log(formSectionField);
+        const fileData = JSON.stringify(formSectionField);
+        const blob = new Blob([fileData], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = "stations.json";
+        link.href = url;
+        link.click();
     }
 
     return(

@@ -39,7 +39,7 @@ function Questions()
         const blob = new Blob([fileData], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
-        link.download = "user-info.json";
+        link.download = "questions_stations.json";
         link.href = url;
         link.click();
     }
