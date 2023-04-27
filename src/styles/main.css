@@ -140,3 +140,8 @@ input {
     color: #04AA6D;
     text-align: center;
 }
+
+hr {
+    border: 1px solid #04AA6D;
+    width: 50%;
+}
