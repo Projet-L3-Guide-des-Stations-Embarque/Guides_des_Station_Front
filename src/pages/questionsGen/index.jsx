@@ -77,7 +77,7 @@ function Questions()
                             </div>
                             {(!input.fin) ? 
                             // Lorsque la checkbox est cochée, on affiche les champs pour une question
-                                <>{"Id question : "+index}
+                                <>{"Numéro question : "+index}
                                     <textarea
                                         name='question'
                                         placeholder='Question'
@@ -88,7 +88,7 @@ function Questions()
                                         <div>
                                             <label>Redirection OUI : </label>
                                             <select name='idoui' onChange={event => handleFormChange(index, event)}>
-                                                <option value=''>Choisir un ID</option>
+                                                <option value=''>Numéro suivant</option>
                                                 {inputFields.map((input, index) => {
                                                     return (
                                                         <option value={input.id} key={index}>{input.id}</option>
@@ -99,7 +99,7 @@ function Questions()
                                         <div>
                                             <label>Redirection NON : </label>
                                             <select name='idnon' onChange={event => handleFormChange(index, event)}>
-                                                <option value=''>Choisir un ID</option>
+                                                <option value=''>Numéro suivant</option>
                                                 {inputFields.map((input, index) => {
                                                     return (
                                                         <option value={input.id} key={index}>{input.id}</option>
@@ -111,7 +111,7 @@ function Questions()
                                 </> 
                                 : 
                                 // Lorsque la checkbox n'est pas cochée, on affiche les champs pour une station
-                                <>{"Id station : "}
+                                <>{"Numéro de station : "}
                                     <input 
                                         type='text'
                                         name='id'
