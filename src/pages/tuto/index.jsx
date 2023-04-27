@@ -4,7 +4,14 @@ function Tuto()
 {
     return(
         <>
-         <body>
+        <div className="topnav">
+                <Link to="/">Accueil</Link>
+                <Link to="/questions">Générer les questions</Link>
+                <Link to="/stations">Générer les pages des stations</Link>
+                <Link to="/tutoriel" className="active">Tutoriel pour KML</Link>
+                <Link to="/apropos">A propos</Link>
+            </div>
+            <body>
     <center><h1>Tutoriel de création de zones géographiques pour un guide forestier digital</h1></center>
 
     <ul>
@@ -19,9 +26,9 @@ function Tuto()
     <p>Certains guides forestiers incluent une carte, permettant d'adapter des jugements et conclusions en fonction du terrain local. Ce document montre comment réaliser un fichier pouvant être lu par l'application Guide des Stations.</p>
 
     <center>
-        <div style="display: flex;">
-            <img src="./carteGuide.png" style="width:20vw;">
-            <img src="./carteGoogleEarth.png" style="width:20vw;">
+        <div>
+            <img src="./carteGuide.png"/>
+            <img src="./carteGoogleEarth.png"/>
         </div>
     </center>
 
@@ -37,39 +44,39 @@ function Tuto()
 
     <p>Ouvrez Google Earth.</p>
 
-    <center><img src="./googleEarth.png" style="width:40vw;"></center>
+    <center><img src="./googleEarth.png"/></center>
 
     <p>Sélectionnez « Projets ».</p>
 
-    <center><img src="./projets.png" style="width:40vw;"></center>
+    <center><img src="./projets.png"/></center>
 
     <p>Sélectionnez « Créer ».</p>
 
-    <center><img src="./creerProjet.png" style="width:40vw;"></center>
+    <center><img src="./creerProjet.png"/></center>
 
     <p>Sélectionnez « Créer un fichier KML ».</p>
 
-    <center><img src="./fichierKML.png" style="width:40vw;"></center>
+    <center><img src="./fichierKML.png"/></center>
 
     <h3>Ajouter une zone</h3>
 
     <p>Dans le nouveau projet, sélectionnez « Nouvel élément ».</p>
 
-    <center><img src="./nouveauSecteur.png" style="width:40vw;"></center>
+    <center><img src="./nouveauSecteur.png"/></center>
 
     <p>Sélectionnez « Tracer une ligne ou une forme ».</p>
 
-    <center><img src="./tracerUneLigneOuUneForme.png" style="width:30vw;"></center>
+    <center><img src="./tracerUneLigneOuUneForme.png"/></center>
 
     <p>Cliquez sur la carte pour commencer votre tracé. Cliquez à nouveau pour créer un nouveau trait.</p>  
 
-    <center><img src="./debutLigne.png" style="width:40vw;"></center>
+    <center><img src="./debutLigne.png"/></center>
 
     <p>Pour finir la zone, créez un nouveau tracé sur le point d’origine.</p>
 
     <center>
-        <img src="./finLigne.png" style="width:40vw;">
-        <img src="./traceComplet.png" style="width:40vw;">
+        <img src="./finLigne.png"/>
+        <img src="./traceComplet.png"/>
     </center>
 
     <h3>Nommer la nouvelle zone</h3>
@@ -79,29 +86,29 @@ Une zone est associée à un secteur (par exemple « secteur climatique »). Si 
     </p>
 
     
-    <center><img src="./triangleGuide.png" style="width:10vw;"></center>
-    <center><img src="./nomSecteur.png" style="width:30vw;"></center>
+    <center><img src="./triangleGuide.png"/></center>
+    <center><img src="./nomSecteur.png"/></center>
     
 
     <p>
         <b>Attention</b>    L’application regardera les premiers chiffres du nom de la zone pour savoir à quel secteur elle est associée. Tant qu’il y a une séparation entre la fin du numéro de secteur et le reste du nom, tout est bon (voir exemples). Le reste du nom peut être ce que vous souhaitez.
     </p>
 
-    <center><img src="./tableau.png" style="width:20vw;"></center>
+    <center><img src="./tableau.png"/></center>
 
     <h2>4. Exportation</h2>
 
     <p>Pour récupérer le fichier KML, sélectionnez « Autres actions ».</p>
 
-    <center><img src="./aExporter.png" style="width:50vw;"></center>
+    <center><img src="./aExporter.png"/></center>
 
     <p>Sélectionnez « Exporter en tant que fichier KML ».</p>
 
-    <center><img src="./exporterKml.png" style="width:30vw;"></center>
+    <center><img src="./exporterKml.png"/></center>
 
     <p>Vous récupérez alors le fichier.</p>
 
-    <center><img src="./telechargement.png" style="width:40vw;"></center>
+    <center><img src="./telechargement.png"/></center>
 </body>
          <Link to="/">Home</Link>
         </>

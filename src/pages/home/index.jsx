@@ -13,13 +13,20 @@ function Home()
 
     return(
         <>
-            <h1>Home</h1>
-            {(number > 5) && <p>super paragraphe</p>}
-            <button onClick={() => setNumber(number + 1)}>Incrémenter</button>
-            <p className={'paragraph-base ' + ((number > 5) ? 'paragraph-red' : 'paragraph-green')}>{number}</p>
-            <Link to="/apropos">A propos</Link>
-            <br/>
-            <Link to="/tutoriel">Tutoriel pour KML</Link>
+            <div className="topnav">
+                <Link to="/" className="active">Accueil</Link>
+                <Link to="/questions">Générer les questions</Link>
+                <Link to="/stations">Générer les pages des stations</Link>
+                <Link to="/tutoriel">Tutoriel pour KML</Link>
+                <Link to="/apropos">A propos</Link>
+            </div>
+
+            <div className="content">
+                <p>
+                    Pour créer un guide vous pouvez <Link to="/questions">Générer les questions</Link> ainsi que <Link to="/stations">Générer les pages des stations</Link>.
+                </p>
+            </div>
+
         </>
     )
 }
