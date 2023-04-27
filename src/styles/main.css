@@ -170,3 +170,13 @@ hr {
     border: 1px solid #04AA6D;
     width: 50%;
 }
+
+.tuto_body {
+    width: 50vw;
+    margin-left: 25vw;
+}
+.tuto_10wid {width: 20vh;}
+.tuto_20wid {width: 40vh;}
+.tuto_30wid {width: 60vh;}
+.tuto_40wid {width: 80vh;}
+.tuto_50wid {width: 100vh;}
