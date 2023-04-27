@@ -59,7 +59,7 @@ function Questions()
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
                 <Link to="/apropos">A propos</Link>
             </div>
-            <p>Page pour générer les questions</p>
+            <h2 className="catchPhrase">Vous pouvez ici générer la clé de determination des stations à l'aide de questions.</h2>
             <div className="App">
                 <form>
                     {inputFields.map((input, index) => {
