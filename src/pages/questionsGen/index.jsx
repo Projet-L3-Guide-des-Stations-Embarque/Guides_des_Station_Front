@@ -61,7 +61,7 @@ function Questions()
             </div>
             <p>Page pour générer les questions</p>
             <div className="App">
-                <form onSubmit={submit}>
+                <form>
                     {inputFields.map((input, index) => {
                     return (
                         <div key={index} className='questionFormulaire'>
