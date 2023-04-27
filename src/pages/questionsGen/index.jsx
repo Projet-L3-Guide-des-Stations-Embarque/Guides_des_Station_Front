@@ -9,7 +9,9 @@ function Questions()
     
     const handleFormChange = (index, event) => {
         let data = [...inputFields];
-        data[index]["id"] = index;
+        if (data[index]["id"] == "") {
+            data[index]["id"] = String(index);
+        }
         data[index][event.target.name] = event.target.value;
         setInputFields(data);
     }
@@ -56,40 +58,66 @@ function Questions()
                     {inputFields.map((input, index) => {
                     return (
                         <div key={index} className='questionFormulaire'>
-                        <>{index}</>
-                        <textarea
-                            name='question'
-                            placeholder='Question'
-                            value={input.question}
-                            onChange={event => handleFormChange(index, event)}
-                        />
-                        <div className='formulairefin'>
-                            <label>Fin de chemin : </label>
-                            <input
-                                name='fin'
-                                type='checkbox'
-                                placeholder='fin'
-                                value={input.fin}
-                                onChange={event => handleCheckBoxChange(index, event)}
-                            />
-                        </div>
-                        {(!input.fin) && <div className='formulaireOuiNon'>
-                            <input
-                                name='idoui'
-                                type='number'
-                                placeholder='idoui'
-                                value={input.idoui}
-                                onChange={event => handleFormChange(index, event)}
-                            />
-                            <input
-                                name='idnon'
-                                type='number'
-                                placeholder='idnon'
-                                value={input.idnon}
-                                onChange={event => handleFormChange(index, event)}
-                            />
-                        </div>}
-                        <button onClick={() => removeFields(index)}>Supprimer</button>
+                            <div className='formulairefin'>
+                                <label>Station : </label>
+                                <input
+                                    name='fin'
+                                    type='checkbox'
+                                    placeholder='fin'
+                                    value={input.fin}
+                                    onChange={event => handleCheckBoxChange(index, event)}
+                                />
+                            </div>
+                            {(!input.fin) ? 
+                            // Lorsque la checkbox est cochée, on affiche les champs pour une question
+                                <>{"Id question : "+index}
+                                    <textarea
+                                        name='question'
+                                        placeholder='Question'
+                                        value={input.question}
+                                        onChange={event => handleFormChange(index, event)}
+                                    />
+                                    <div className='formulaireOuiNon'>
+                                        <div>
+                                            <label>Redirection OUI : </label>
+                                            <input
+                                                name='idoui'
+                                                type='number'
+                                                placeholder='idoui'
+                                                value={input.idoui}
+                                                onChange={event => handleFormChange(index, event)}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label>Redirection NON : </label>
+                                            <input
+                                                name='idnon'
+                                                type='number'
+                                                placeholder='idnon'
+                                                value={input.idnon}
+                                                onChange={event => handleFormChange(index, event)}
+                                            />
+                                        </div>
+                                    </div>
+                                </> 
+                                : 
+                                // Lorsque la checkbox n'est pas cochée, on affiche les champs pour une station
+                                <>{"Id station : "}
+                                    <input 
+                                        type='text'
+                                        name='id'
+                                        value={input.index}
+                                        onChange={event => handleFormChange(index, event)}
+                                    />
+                                    <textarea
+                                        name='question'
+                                        placeholder='Nom Station'
+                                        value={input.question}
+                                        onChange={event => handleFormChange(index, event)}
+                                    />
+                                </>
+                            }
+                            <button onClick={() => removeFields(index)}>Supprimer</button>
                         </div>
                     )
                     })}
