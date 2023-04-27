@@ -1,15 +1,5 @@
 import { Link } from "react-router-dom"
-import { useState } from "react";
-
-function addTextElement(){
-    return(
-        <div className="textElement">
-            <input type="text" placeholder="Texte" />
-            <br/>
-            <button>Supprimer</button>
-        </div>
-    )
-}
+import { useState} from "react";
 
 function Stations()
 {
@@ -20,9 +10,25 @@ function Stations()
     const handleFormChange = (index, event) => {
         let data = [...formSectionField];
         console.log(event.target.value);
-        data[index][event.target.name] = event.target.value;
-        setFormSectionField(data);
+        if(event.target.name === "imageElement"){
+            //traitement sur image
+            // data[index][event.target.name] = getEmergencyFoundImg(event.target.value);
+            let base64string = "";
+            const files = event.target.files;
+            const file = files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () =>{
+                base64string = reader.result;
+                data[index][event.target.name] = base64string;
+            }
+        }else{
+            data[index][event.target.name] = event.target.value;
+            setFormSectionField(data);
+        }
     }
+
+    
 
     const addSection = () => {
         let object ={section:"", textElement:"", imageElement:""}
@@ -92,7 +98,7 @@ function Stations()
                                 <button onClick={() => removeTextElement(idx)}>Supprimer</button>
                             </div>
                             <div className="imageElement">
-                                <input type="file" name="imageElement" placeholder="Image" value={val.imageElement} multiple accept="image/*" onChange={event => handleFormChange(idx,event)}/>
+                                <input type="file" name="imageElement" placeholder="Image" value={val.imageElement} multiple accept="image/*" onChange={event =>handleFormChange(idx,event)}/>
                                 <br/>
                                 <button onClick={() => removeImageElement(idx)}>Supprimer</button>
                             </div>
