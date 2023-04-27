@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 
 function Questions()
 {
+    const [idSuivant, setIdSuivant] = useState(1)
+
     const [inputFields, setInputFields] = useState([
         { id:'0', question: '', fin:false, idoui: '', idnon: '' }
     ])
@@ -27,7 +29,8 @@ function Questions()
     }
 
     const addFields = () => {
-        let newfield = {id:'', question: '', fin:false, idoui: '', idnon: '' }
+        let newfield = {id:String(idSuivant), question: '', fin:false, idoui: '', idnon: '' }
+        setIdSuivant(idSuivant + 1)
     
         setInputFields([...inputFields, newfield])
     }
@@ -44,7 +47,8 @@ function Questions()
         link.click();
     }
 
-    const removeFields = (index) => {
+    const removeFields = (index, e) => {
+        e.preventDefault();
         let data = [...inputFields];
         data.splice(index, 1)
         setInputFields(data)
@@ -77,7 +81,7 @@ function Questions()
                             </div>
                             {(!input.fin) ? 
                             // Lorsque la checkbox est cochée, on affiche les champs pour une question
-                                <>{"Numéro question : "+index}
+                                <>{"Numéro question : "+input.id}
                                     <textarea
                                         name='question'
                                         placeholder='Question'
@@ -115,7 +119,7 @@ function Questions()
                                     <input 
                                         type='text'
                                         name='id'
-                                        value={input.index}
+                                        value={input.id}
                                         onChange={event => handleFormChange(index, event)}
                                     />
                                     <textarea
@@ -126,7 +130,7 @@ function Questions()
                                     />
                                 </>
                             }
-                            <button onClick={() => removeFields(index)}>Supprimer</button>
+                            <button onClick={event => removeFields(index, event)}>Supprimer</button>
                             <hr></hr>
                         </div>
                     )
