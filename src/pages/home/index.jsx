@@ -21,9 +21,10 @@ function Home()
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
             </div>
             
-            <button onClick={() => setNumber(number + 1)}>Incrémenter</button>
+            {/* <button onClick={() => setNumber(number + 1)}>Incrémenter</button>
             {(number > 5) && <p>super paragraphe</p>}
-            <p className={'paragraph-base ' + ((number > 5) ? 'paragraph-red' : 'paragraph-green')}>{number}</p>
+            <p className={'paragraph-base ' + ((number > 5) ? 'paragraph-red' : 'paragraph-green')}>{number}</p> */}
+            <p>Bienvenue sur le site de génération des Guides de Stations Forestières embarquées.</p>
         </>
     )
 }

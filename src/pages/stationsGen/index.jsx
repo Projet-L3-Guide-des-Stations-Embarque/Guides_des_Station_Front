@@ -4,8 +4,9 @@ import { useState} from "react";
 function Stations()
 {
     const [formSectionField, setFormSectionField] = useState([
-        {section:"", textElement:"", imageElement:""}
+        {station:"",section:"", textElement:"", imageElement:""}
     ])
+    const [stationName, setStationName] = useState("");
 
     const handleFormChange = (index, event) => {
         let data = [...formSectionField];
@@ -26,6 +27,13 @@ function Stations()
             data[index][event.target.name] = event.target.value;
             setFormSectionField(data);
         }
+    }
+
+    const handleTitle = (event) => {
+        let data = [...formSectionField];
+        data[0]["station"] = event.target.value;
+        setStationName(event.target.value);
+        setFormSectionField(data);
     }
 
     
@@ -60,6 +68,9 @@ function Stations()
     const submitForm = (e) => {
         e.preventDefault();
         console.log(formSectionField);
+        for(let i = 0; i < formSectionField.length; i++){
+            formSectionField[i]["station"] = stationName;
+        }
         download(e);
         
     }
@@ -86,27 +97,32 @@ function Stations()
             {/* <p>Page pour générer les pages des Stations</p> */}
             <center>
             <div className="page">
-                 {/* <form onSubmit={submitForm}> */}
+            <div className="station">
+                <input type="text" name="station" placeholder="Nom de station" onChange={handleTitle}/>
+
+                {/* <form onSubmit={submitForm}> */}
                 <form>
                 {formSectionField.map((val, idx) => {
                     return(
-                        <div key={idx} className="section">
-                            <input type="text" name="section" placeholder="Nom de section" value={val.section} onChange={event => handleFormChange(idx,event)}/>
-                            <div className="textElement">
-                                <textarea name="textElement" placeholder="Texte" value={val.textElement} onChange={event =>handleFormChange(idx,event)}/>
-                                <br/>
-                                <button onClick={() => removeTextElement(idx)}>Supprimer</button>
+                        
+                            <div key={idx} className="section">
+                                <input type="text" name="section" placeholder="Nom de section" value={val.section} onChange={event => handleFormChange(idx,event)}/>
+                                <div className="textElement">
+                                    <textarea name="textElement" placeholder="Texte" value={val.textElement} onChange={event =>handleFormChange(idx,event)}/>
+                                    <br/>
+                                    <button onClick={() => removeTextElement(idx)}>Supprimer</button>
+                                </div>
+                                <div className="imageElement">
+                                    <input type="file" name="imageElement" placeholder="Image" multiple accept="image/*" onChange={event =>handleFormChange(idx,event)}/>
+                                    <br/>
+                                    <button onClick={() => removeImageElement(idx)}>Supprimer</button>
+                                </div>
+                                <button onClick={() => removeSection(val.section)}>Supprimer</button>
                             </div>
-                            <div className="imageElement">
-                                <input type="file" name="imageElement" placeholder="Image" value={val.imageElement} multiple accept="image/*" onChange={event =>handleFormChange(idx,event)}/>
-                                <br/>
-                                <button onClick={() => removeImageElement(idx)}>Supprimer</button>
-                            </div>
-                            <button onClick={() => removeSection(val.section)}>Supprimer</button>
-                        </div>
                     )
                 })}
                 </form>
+                </div>
                 <button onClick={addSection}>Ajouter une section</button>
                 </div>
                 <button onClick={submitForm} className="validateButton">Valider</button>
