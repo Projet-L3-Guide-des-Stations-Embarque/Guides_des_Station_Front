@@ -87,23 +87,25 @@ function Questions()
                                     <div className='formulaireOuiNon'>
                                         <div>
                                             <label>Redirection OUI : </label>
-                                            <input
-                                                name='idoui'
-                                                type='number'
-                                                placeholder='idoui'
-                                                value={input.idoui}
-                                                onChange={event => handleFormChange(index, event)}
-                                            />
+                                            <select name='idoui' onChange={event => handleFormChange(index, event)}>
+                                                <option value=''>Choisir un ID</option>
+                                                {inputFields.map((input, index) => {
+                                                    return (
+                                                        <option value={input.id} key={index}>{input.id}</option>
+                                                    )
+                                                })}
+                                            </select>
                                         </div>
                                         <div>
                                             <label>Redirection NON : </label>
-                                            <input
-                                                name='idnon'
-                                                type='number'
-                                                placeholder='idnon'
-                                                value={input.idnon}
-                                                onChange={event => handleFormChange(index, event)}
-                                            />
+                                            <select name='idnon' onChange={event => handleFormChange(index, event)}>
+                                                <option value=''>Choisir un ID</option>
+                                                {inputFields.map((input, index) => {
+                                                    return (
+                                                        <option value={input.id} key={index}>{input.id}</option>
+                                                    )
+                                                })}
+                                            </select>
                                         </div>
                                     </div>
                                 </> 
@@ -125,6 +127,7 @@ function Questions()
                                 </>
                             }
                             <button onClick={() => removeFields(index)}>Supprimer</button>
+                            <hr></hr>
                         </div>
                     )
                     })}
