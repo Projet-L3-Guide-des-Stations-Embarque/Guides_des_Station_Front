@@ -80,6 +80,22 @@ function Stations()
         const blob = new Blob([fileData], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
+        //--------------------------
+        const fs = require('fs');
+        /*let data = "This is a file containing a collection"
+           + " of programming languages.\n"
+            + "1. C\n2. C++\n3. Python";
+        fs.writeFileSync("programming.txt", data);*/
+        const stateFile = "../SAVE_JSON/stations.json";
+
+        const saveLastEventSequenceId = (link) => {
+            try {
+                fs.writeFileSync(stateFile, link);
+            } catch (err) {
+                throw err;
+            }
+        };
+        //--------------------------
         link.download = "stations.json";
         link.href = url;
         link.click();
