@@ -1,19 +1,12 @@
 import { useState } from 'react'
 import { Link } from "react-router-dom"
 
-function Ge()
+function Ge(props)
 {
     const [idSuivant, setIdSuivant] = useState(1)
 
     const [inputFields, setInputFields] = useState([
-        { idPlante:'0', image: '', descriptionfr:'', descriptionlat: ''}
-        //GERER PLUSIEUR + NOM GE + Image
-        /*
-        "GE":"7",
-        "titre":"Plantes des milieux très frais (hygroclines) • GE.7",
-        "images":[],
-        "titre_image":[],
-        "sous_titre_image":[]*/
+        { idPlante:'0', imageGE: '', descriptionfr:'', descriptionlat: ''}
     ])
     
     const handleFormChange = (index, event) => {
@@ -21,9 +14,7 @@ function Ge()
         if (data[index]["idPlante"] == "") {
             data[index]["idPlante"] = String(index);
         }
-        if(event.target.name === "image"){
-            //traitement sur image
-            // data[index][event.target.name] = getEmergencyFoundImg(event.target.value);
+        if(event.target.name === "imageGE"){
             let base64string = "";
             const files = event.target.files;
             const file = files[0];
@@ -40,23 +31,21 @@ function Ge()
     }
 
     const addPlante = () => {
-        let newfield = {idPlante:String(idSuivant), image: '', descriptionfr:'', descriptionlat: ''}
+        let newfield = {idPlante:String(idSuivant), imageGE: '', descriptionfr:'', descriptionlat: ''}
         setIdSuivant(idSuivant + 1)
+        if (props.onSubmitDataFn && typeof props.onSubmitDataFn === 'function') {
+            props.onSubmitDataFn(JSON.stringify(newfield))
+        }
         setInputFields([...inputFields, newfield])
     }
+
 
     const submit = (e) => {
         e.preventDefault();
         console.log(inputFields)
-
         var strfile = '[\n';
-        strfile = strfile + "{\n";
-        strfile = strfile + "\"GE\":\"1\",\n";
-        strfile = strfile + "\"titre\":\"LE TITRE DE LA GE\",\n";
-        
-        strfile = strfile + "\"images\":[\n";
         for (var i = 0; i < inputFields.length; i++){
-            strfile = strfile + "\"" + inputFields[i]["image"] + "\",\n";
+            strfile = strfile + "\"" + inputFields[i]["imageGE"] + "\",\n";
         }
         strfile = strfile + "],\n";
         
@@ -71,15 +60,7 @@ function Ge()
             strfile = strfile + "\"" + inputFields[i]["descriptionlat"] + "\",\n";
         }
         strfile = strfile + "]\n";
-        strfile = strfile + "}\n";
-        strfile = strfile + "]\n";
-        //const fileData = JSON.stringify(inputFields);
-        const blob = new Blob([strfile], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.download = "ge.json";
-        link.href = url;
-        link.click();
+        return strfile;
     }
 
     const removeFields = (index, e) => {
@@ -91,50 +72,32 @@ function Ge()
 
     return(
         <>
-            <div className="topnav">
-                <Link to="/">Accueil</Link>
-                <Link to="/questions">Générer les questions</Link>
-                <Link to="/stations">Générer les pages des stations</Link>
-                <Link to="/ge" className="active">Générer les groupes écologiques</Link>
-                <Link to="/tutoriel">Tutoriel pour KML</Link>
-                <Link to="/apropos">A propos</Link>
-            </div>
-            <h2 className="catchPhrase">Vous pouvez ici générer les différents groupes écologiques présents dans le guide.</h2>
             <div className="App">
-                <form>
+                    <div className='formulairedesGE'>
                     {inputFields.map((input, index) => {
-                    return (
-                        <div key={index} className='questionFormulaire'>
-                            <>{"Image de la plante : "}
-                                    <input 
-                                        type='file'
-                                        name='image'
-                                        value={input.id}
-                                        onChange={event => handleFormChange(index, event)}
-                                    />
-                                    <div className='formulairedeLaGE'>
-                                        <div>
-                                            <label>Nom (français) : </label>
-                                            <input type='text' name="descriptionfr" placeholder="Nom de la plante" value={input.descriptionfr} onChange={event =>handleFormChange(index,event)}/>
-                                        </div>
-                                        <div>
-                                            <label>Nom (latin) : </label>
-                                            <input type='text' name="descriptionlat" placeholder="Nom de la plante" value={input.descriptionlat} onChange={event =>handleFormChange(index,event)}/>
-                                        </div>
+                        return (
+                            <div key={index} >
+                                <>{"Informations de la plante"}
+                                    <input type='file' name='imageGE' value={input.id} onChange={event => handleFormChange(index, event)}/>
+                                    <div>
+                                        <textarea name='descriptionfr' placeholder='Nom (français)' value={input.question} onChange={event => handleFormChange(index, event)}/>
                                     </div>
-                                </> 
-                            <button onClick={event => removeFields(index, event)}>Supprimer</button>
-                            <hr></hr>
-                        </div>
-                    )
-                    })}
-                </form>
-                <div className='formulaireFin'>
-                    <button onClick={addPlante}>Ajouter une plante au Ge</button>
-                    <button onClick={submit}>Envoyer</button>
+                                    <div>
+                                        <textarea name='descriptionlat' placeholder='Nom (latin)' value={input.question} onChange={event => handleFormChange(index, event)}/>
+                                    </div>
+                                </>
+                                <div className='formulaireFin'>
+                                    <button onClick={event => removeFields(index, event)}>Supprimer</button>
+                                </div>
+                            </div>
+                            )
+                        })}
+                    </div>
+                    <div className='formulaireFin'>
+                        <button onClick={addPlante}>Ajouter une plante au Ge</button>
+                    </div>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        )
 }
 export default Ge;
