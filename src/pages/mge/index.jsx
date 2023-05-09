@@ -25,6 +25,25 @@ function MultiGe () {
         setTabGEs(result)
     }
 
+    const recup = (geJson) => {
+        //VIDE TAB
+        setTabGEs([]);
+        //////////
+        setIdSuivant(2);
+        for (const elem in geJson){
+            let newGe = ({id: elem.GE, nom: elem.titre, plantes:[]})
+            let nextid = 1
+            for(let indiceI = 0; indiceI < elem.images.length ; indiceI++){
+                let newTab = {idP: String(nextid), imageGE: elem.images[indiceI], descriptionfr: elem.titre_image[indiceI], descriptionlat: elem.sous_titre_image[indiceI]};
+                newGe.plantes = newGe.plantes + newTab;
+                nextid = nextid + 1;
+            }
+            setIdSuivant(idSuivant + 1)
+            setTabGEs([...TabGEs, newGe])
+        }
+    }
+
+
     const submit = (e) => {
         e.preventDefault();
         console.log(TabGEs);
@@ -136,6 +155,9 @@ function MultiGe () {
         </div>
         <h2 className="catchPhrase">Vous pouvez ici générer les différents groupes écologiques présents dans le guide.</h2>
         <div className="App">
+            <div className='formulaireFin'>
+                <button>Charger un Ge existant</button>
+            </div>
             {TabGEs.map((entry,indexGE) => {
                 return(
                     <div key={entry.id} className='formulairedeLaGE'>
