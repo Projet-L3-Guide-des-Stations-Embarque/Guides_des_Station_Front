@@ -3,13 +3,13 @@ import { useState} from "react";
 
 function Stations()
 {
-    const [formSectionField, setFormSectionField] = useState([
+    const [StationField, setStationField] = useState([
         {station:"",section:"", textElement:"", imageElement:""}
     ])
     const [stationName, setStationName] = useState("");
 
     const handleFormChange = (index, event) => {
-        let data = [...formSectionField];
+        let data = [...StationField];
         console.log(event.target.value);
         if(event.target.name === "imageElement"){
             //traitement sur image
@@ -25,15 +25,15 @@ function Stations()
             }
         }else{
             data[index][event.target.name] = event.target.value;
-            setFormSectionField(data);
+            setStationField(data);
         }
     }
 
     const handleTitle = (event) => {
-        let data = [...formSectionField];
+        let data = [...StationField];
         data[0]["station"] = event.target.value;
         setStationName(event.target.value);
-        setFormSectionField(data);
+        setStationField(data);
     }
 
     
@@ -41,42 +41,42 @@ function Stations()
     const addSection = () => {
         let object ={section:"", textElement:"", imageElement:""}
 
-        setFormSectionField([...formSectionField, object]);
+        setStationField([...StationField, object]);
     }
 
     const removeSection = (section) => {
-        let data = [...formSectionField];
+        let data = [...StationField];
         data.splice(section, 1)
-        setFormSectionField(data)
+        setStationField(data)
         //e.target.parentNode.remove();
     }
 
     const removeTextElement = (idx) => {
-        let data = [...formSectionField];
+        let data = [...StationField];
         data[idx]["textElement"] = "";
-        setFormSectionField(data)
+        setStationField(data)
         //e.target.parentNode.remove();
     }
 
     const removeImageElement = (section, e) => {
-        let data = [...formSectionField];
+        let data = [...StationField];
         data[section]["imageElement"] = "";
-        setFormSectionField(data)
+        setStationField(data)
         //e.target.remove();
     }
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log(formSectionField);
-        for(let i = 0; i < formSectionField.length; i++){
-            formSectionField[i]["station"] = stationName;
+        console.log(StationField);
+        for(let i = 0; i < StationField.length; i++){
+            StationField[i]["station"] = stationName;
         }
         download(e);
         
     }
 
     const download = (e) => {
-        const fileData = JSON.stringify(formSectionField);
+        const fileData = JSON.stringify(StationField);
         const blob = new Blob([fileData], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
@@ -91,7 +91,6 @@ function Stations()
                 <Link to="/">Accueil</Link>
                 <Link to="/questions">Générer les questions</Link>
                 <Link to="/stations" className="active">Générer les pages des stations</Link>
-                <Link to="/ge">Générer les groupes écologiques</Link>
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
                 <Link to="/apropos">A propos</Link>
             </div>
@@ -103,7 +102,7 @@ function Stations()
 
                 {/* <form onSubmit={submitForm}> */}
                 <form>
-                {formSectionField.map((val, idx) => {
+                {StationField.map((val, idx) => {
                     return(
                         
                             <div key={idx} className="section">
@@ -132,5 +131,131 @@ function Stations()
     )
 }
 
-export default Stations;
-{/*  */}
+//export default Stations;
+
+
+
+function StationsBis()
+{
+    const[StationField,setStationField] = useState([
+        {station:"",section : [{section:"",textElement:"",imageElement:""}]}
+    ])
+
+    const handleFormChange = (event, indexStation, indexSection, field) => {
+        let data = [...StationField];
+        data[indexStation].section[indexSection][field] = event.target.value;
+        setStationField(data);
+    }
+
+    const addSection = (indexStation) => {
+        const newSection = {section:"",textElement:"",imageElement:""};
+        const data = [...StationField];
+        data[indexStation].section.push(newSection);
+        setStationField(data);
+    }
+
+    const addStation = () => {
+        const newStation = {station:"",section : [{section:"",textElement:"",imageElement:""}]};
+        setStationField([...StationField, newStation]);
+    }
+
+    const removeSection = (indexStation, indexSection) => {
+        const data = [...StationField];
+        data[indexStation].section.splice(indexSection, 1);
+        setStationField(data);
+    }
+
+    const removeStation = (indexStation) => {
+        const data = [...StationField];
+        data.splice(indexStation, 1);
+        setStationField(data);
+    }
+
+    const removeTextElement = (e,indexStation,indexSection) => {
+        const data = [...StationField];
+        data[indexStation].section[indexSection].textElement = "";
+        setStationField(data);
+        e.target.parentNode.remove();
+    }
+    
+
+    const removeImageElement = (e,indexStation,indexSection) => {
+        const data = [...StationField];
+        data[indexStation].section[indexSection].imageElement = "";
+        setStationField(data);
+        e.target.parentNode.remove();
+    }
+
+    const submitForm = (e) => {
+        e.preventDefault();
+        //console.log(formSectionField);
+        download(e);
+
+    }
+
+    const download = (e) => {
+        const fileData = JSON.stringify(StationField);
+        const blob = new Blob([fileData], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = "stations.json";
+        link.href = url;
+        link.click();
+    }
+
+
+
+    return(
+        <>
+            <div className="topnav">
+                <Link to="/">Accueil</Link>
+                <Link to="/questions">Générer les questions</Link>
+                <Link to="/stations" className="active">Générer les pages des stations</Link>
+                <Link to="/tutoriel">Tutoriel pour KML</Link>
+                <Link to="/apropos">A propos</Link>
+            </div>
+            {/* <p>Page pour générer les pages des Stations</p> */}
+            <center>
+            <div className="page">
+            <form onSubmit={submitForm}>
+                {StationField.map((val, idx) => {
+                    return(
+                        <div key={idx} className="station">
+                            <input type="text" name="station" placeholder="Nom de station" value={val.station} onChange={event => handleFormChange(event, idx, null, "station")}/>
+                            {val.section.map((val2, idx2) => {
+                                return(
+                                    <div key={idx2} className="section">
+                                        <input type="text" name="section" placeholder="Nom de section" value={val2.section} onChange={event => handleFormChange(event, idx, idx2, "section")}/>
+                                        <div className="textElement">
+                                            <textarea name="textElement" placeholder="Texte" value={val2.textElement} onChange={event => handleFormChange(event, idx, idx2, "textElement")}/>
+                                            <br/>
+                                            <button onClick={event => removeTextElement(event,idx,idx2)}>Supprimer</button>
+                                        </div>
+                                        <div className="imageElement">
+                                            <input type="file" name="imageElement" placeholder="Image" multiple accept="image/*" onChange={event => handleFormChange(event, idx, idx2, "imageElement")}/>
+                                            <br/>
+                                            <button onClick={event => removeImageElement(event,idx,idx2)}>Supprimer</button>
+                                        </div>
+                                        <button onClick={() => removeSection(idx, idx2)}>Supprimer</button>
+                                    </div>
+                                )
+                            })}
+                            <br/>
+                            <button onClick={() => addSection(idx)}>Ajouter une section</button>
+                            <br/>
+                            <button onClick={() => removeStation(idx)}>Supprimer la station</button>
+                            
+                        </div>
+                        
+                    )
+                })}
+            </form>   
+            <button onClick={() => addStation()}>Ajouter une station</button>      
+            </div>
+            <button className='validateButton' onClick={submitForm}>Sauvegarder</button>
+            </center>
+        </>
+    )
+}
+
+export default StationsBis;
