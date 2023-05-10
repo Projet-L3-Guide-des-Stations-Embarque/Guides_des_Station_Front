@@ -6,7 +6,7 @@ function Element(props) {
 
     const onChangeTextElement = (e) => {
         setValueInfoElem(e.target.value)
-        props.onChangeInfoElem(e.target.value)
+        props.onChangeContenuElem(e.target.value)
     }
     
     const onChangeImageElement = (e) => {
@@ -18,8 +18,8 @@ function Element(props) {
         reader.onload = () =>{
             base64string = reader.result;
             console.log('B64: ' + base64string)
-            
-            props.onChangeInfoElem(base64string)
+            //setValueInfoElem(base64string)
+            props.onChangeBase64Elem(base64string)
         }
     }
 
@@ -29,7 +29,7 @@ function Element(props) {
             <>
             Image:
             <div>
-                <input type='file' name='infoElem' value={valueInfoElem} onChange={onChangeImageElement}/>
+                <input type='file' name='base64' accept="image/*" value={valueInfoElem} onChange={onChangeImageElement}/>
             </div>
             </>
         )
@@ -38,7 +38,7 @@ function Element(props) {
             <>
             Texte:
             <div>
-                <input type='text'name='infoElem' value={valueInfoElem} onChange={onChangeTextElement}/>
+                <input type='text'name='contenu' value={valueInfoElem} onChange={onChangeTextElement}/>
             </div>
             </>
         )

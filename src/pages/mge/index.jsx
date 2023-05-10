@@ -8,11 +8,11 @@ function MultiGe () {
     const [idSuivant, setIdSuivant] = useState(2)
 
     const [TabGEs, setTabGEs] = useState([
-        {id: '1', nom: '', plantes: [{idP:'0', imageGE: '', descriptionfr:'', descriptionlat: ''}]}
+        {idParcours:'1', id: '1', nom: '', plantes: [{idP:'0', imageGE: '', descriptionfr:'', descriptionlat: ''}]}
     ]);
 
     const ajouterGE = () => {
-        let geActuel = ({id: String(idSuivant), nom: '', plantes: [{idP:'0', imageGE: '', descriptionfr:'', descriptionlat: ''}]})
+        let geActuel = ({idParcours:String(idSuivant), id: String(idSuivant), nom: '', plantes: [{idP:'0', imageGE: '', descriptionfr:'', descriptionlat: ''}]})
         setIdSuivant(idSuivant + 1)
         setTabGEs([...TabGEs, geActuel])
     }
@@ -25,7 +25,7 @@ function MultiGe () {
         setTabGEs(result)
     }
 
-    const recup = (geJson) => {
+    /*const recup = (geJson) => {
         //VIDE TAB
         setTabGEs([]);
         //////////
@@ -41,7 +41,7 @@ function MultiGe () {
             setIdSuivant(idSuivant + 1)
             setTabGEs([...TabGEs, newGe])
         }
-    }
+    }*/
 
 
     const submit = (e) => {
@@ -160,7 +160,7 @@ function MultiGe () {
             </div>
             {TabGEs.map((entry,indexGE) => {
                 return(
-                    <div key={entry.id} className='formulairedeLaGE'>
+                    <div key={entry.idParcours} className='formulairedeLaGE'>
                         <GE geid={entry.id} nom={entry.nom} plantes={entry.plantes} 
                             onChangeID={createChangeIemeElementID(indexGE)} 
                             onChangeNom={createChangeIemeElementNom(indexGE)}

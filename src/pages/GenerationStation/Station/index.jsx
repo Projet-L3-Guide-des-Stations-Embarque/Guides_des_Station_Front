@@ -8,7 +8,7 @@ function Station(props) {
     const [valueTabSections, setValueTabSections] = useState(props.sections)
 
     const ajouterSection = () => {
-        let newSection = ({idSect:String(idSuivant), nomSection:'', elements: [ {idElem:'0',type:'text',info:''},{idElem:'1',type:'image',info:''}]})
+        let newSection = ({idSect:String(idSuivant), titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]})
         setIdSuivant(idSuivant + 1)
         setValueTabSections([...valueTabSections, newSection])
         props.onChangeTabSections(valueTabSections)
@@ -30,7 +30,7 @@ function Station(props) {
 
     const changeIemeElementNomSection = (i, val) => {
         let data = [...valueTabSections];
-        data[i].nomSection = val;
+        data[i].titre = val;
         setValueTabSections(data);
         props.onChangeTabSections(valueTabSections);
     }
@@ -59,7 +59,7 @@ function Station(props) {
         {valueTabSections.map((entryStation,indexSection) => {
                 return(
                     <div key={entryStation.idSect} className='formulairedeLaGE'>
-                        <Section nomSection={entryStation.nomSection} elements={entryStation.elements}
+                        <Section nomSection={entryStation.titre} elements={entryStation.elements}
                         onChangeNomSection={createChangeIemeElementNomSection(indexSection)}
                         onChangeTabSections={createChangeIemeElementTabElements(indexSection)}></Section>
                         <button onClick={event => supprimerSection(indexSection)}>Supprimer</button>

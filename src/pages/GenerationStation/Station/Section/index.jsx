@@ -8,14 +8,14 @@ function Section(props) {
     const [valueTabElements, setValueTabElements] = useState(props.elements)
 
     const ajouterElementText = () => {
-        let newElement = ({idElem:String(idSuivant),type:'text',info:''})
+        let newElement = ({idElem:String(idSuivant),type:'texte',contenu:'',base64:''})
         setIdSuivant(idSuivant + 1)
         setValueTabElements([...valueTabElements, newElement])
         props.onChangeTabSections(valueTabElements)
     }
 
     const ajouterElementImage = () => {
-        let newElement = ({idElem:String(idSuivant),type:'image',info:''})
+        let newElement = ({idElem:String(idSuivant),type:'image',contenu:'',base64:''})
         setIdSuivant(idSuivant + 1)
         setValueTabElements([...valueTabElements, newElement])
         props.onChangeTabSections(valueTabElements)
@@ -35,15 +35,26 @@ function Section(props) {
         props.onChangeNomSection(e.target.value)
     }
 
-    const changeIemeElementInfoElements = (i, val) => {
+    const changeIemeElementContenuElements = (i, val) => {
         let data = [...valueTabElements];
-        data[i].info = val;
+        data[i].contenu = val;
         setValueTabElements(data);
         props.onChangeTabSections(valueTabElements);
     }
 
-    const createChangeIemeElementInfoElements = (i) => {
-        return changeIemeElementInfoElements.bind(null, i)
+    const changeIemeElementBase64Elements = (i, val) => {
+        let data = [...valueTabElements];
+        data[i].base64 = val;
+        setValueTabElements(data);
+        props.onChangeTabSections(valueTabElements);
+    }
+
+    const createChangeIemeElementContenuElements = (i) => {
+        return changeIemeElementContenuElements.bind(null, i)
+    }
+
+    const createChangeIemeElementBase64Elements = (i) => {
+        return changeIemeElementBase64Elements.bind(null, i)
     }
 
     return(
@@ -56,7 +67,8 @@ function Section(props) {
                 return(
                     <div key={entrySection.idElem} className='formulairedeLaGE'>
                         <Element typeElem={entrySection.type} infoElem={entrySection.info}
-                        onChangeInfoElem={createChangeIemeElementInfoElements(indexElement)}></Element>
+                        onChangeContenuElem={createChangeIemeElementContenuElements(indexElement)}
+                        onChangeBase64Elem={createChangeIemeElementBase64Elements(indexElement)}></Element>
                         <button onClick={event => supprimerElement(indexElement)}>Supprimer</button>
                     </div>
                     )
