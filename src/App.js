@@ -3,7 +3,7 @@ import About from './pages/about'
 import Tuto from './pages/tuto'
 import Questions from './pages/questionsGen'
 import MultiGe from './pages/mge'
-import Stations from './pages/stationsGen'
+import Stations from './pages/GenerationStation'
 import './styles/main.css'
 import {Route, Routes} from 'react-router-dom'
 
