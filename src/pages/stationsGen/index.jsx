@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState} from "react";
 
-function Stations()
+/*function Stations()
 {
     const [StationField, setStationField] = useState([
         {station:"",section:"", textElement:"", imageElement:""}
@@ -95,13 +95,14 @@ function Stations()
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
                 <Link to="/apropos">A propos</Link>
             </div>
-            {/* <p>Page pour générer les pages des Stations</p> */}
+            <p>Page pour générer les pages des Stations</p> 
+            {/*
             <center>
             <div className="page">
             <div className="station">
                 <input type="text" name="station" placeholder="Nom de station" onChange={handleTitle}/>
 
-                {/* <form onSubmit={submitForm}> */}
+             <form onSubmit={submitForm}> 
                 <form>
                 {StationField.map((val, idx) => {
                     return(
@@ -128,12 +129,14 @@ function Stations()
                 </div>
                 <button onClick={submitForm} className="validateButton">Valider</button>
             </center>
-        </>
+            
+        </>*/
+/*
     )
 }
 
 //export default Stations;
-
+*/
 
 
 function StationsBis()
@@ -143,9 +146,15 @@ function StationsBis()
     ])
 
     const handleFormChange = (event, indexStation, indexSection, field) => {
-        let data = [...StationField];
-        data[indexStation].section[indexSection][field] = event.target.value;
-        setStationField(data);
+        if(event.target.name == "station"){
+            let data = [...StationField];
+            data[indexStation].station = event.target.value;
+            setStationField(data);
+        } else {
+            let data = [...StationField];
+            data[indexStation].section[indexSection][field] = event.target.value;
+            setStationField(data);
+        }
     }
 
     const addSection = (indexStation) => {
@@ -219,7 +228,7 @@ function StationsBis()
             {/* <p>Page pour générer les pages des Stations</p> */}
             <center>
             <div className="page">
-            <form onSubmit={submitForm}>
+            <form>
                 {StationField.map((val, idx) => {
                     return(
                         <div key={idx} className="station">
