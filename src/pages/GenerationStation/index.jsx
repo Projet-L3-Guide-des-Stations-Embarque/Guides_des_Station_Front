@@ -41,6 +41,21 @@ function Stations() {
         const createChangeIemeElementTabSections = (i) => {
             return changeIemeElementTabSections.bind(null, i)
         }
+
+        const submit = (e) => {
+            download(e);
+    
+        }
+    
+        const download = (e) => {
+            const fileData = JSON.stringify(TabStation);
+            const blob = new Blob([fileData], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.download = "stations.json";
+            link.href = url;
+            link.click();
+        }
     
         return (
             <>
@@ -66,7 +81,7 @@ function Stations() {
             })}
             <div className='formulaireFin'>
                 <button onClick={ajouterStation}>Ajouter une nouvelle station</button>
-                <button>Envoyer</button>
+                <button onClick={submit}>Envoyer</button>
             </div>
         </div>
         </>

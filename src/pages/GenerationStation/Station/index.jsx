@@ -61,7 +61,7 @@ function Station(props) {
                     <div key={entryStation.idSect} className='formulairedeLaGE'>
                         <Section nomSection={entryStation.nomSection} elements={entryStation.elements}
                         onChangeNomSection={createChangeIemeElementNomSection(indexSection)}
-                        onChangeTabElement={createChangeIemeElementTabElements(indexSection)}></Section>
+                        onChangeTabSections={createChangeIemeElementTabElements(indexSection)}></Section>
                         <button onClick={event => supprimerSection(indexSection)}>Supprimer</button>
                     </div>
                     )

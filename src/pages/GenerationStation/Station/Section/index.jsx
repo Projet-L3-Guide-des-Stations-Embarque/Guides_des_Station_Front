@@ -11,14 +11,14 @@ function Section(props) {
         let newElement = ({idElem:String(idSuivant),type:'text',info:''})
         setIdSuivant(idSuivant + 1)
         setValueTabElements([...valueTabElements, newElement])
-        props.onChangeTabElement(valueTabElements)
+        props.onChangeTabSections(valueTabElements)
     }
 
     const ajouterElementImage = () => {
         let newElement = ({idElem:String(idSuivant),type:'image',info:''})
         setIdSuivant(idSuivant + 1)
         setValueTabElements([...valueTabElements, newElement])
-        props.onChangeTabElement(valueTabElements)
+        props.onChangeTabSections(valueTabElements)
     }
 
     const supprimerElement = (i) => {
@@ -27,12 +27,23 @@ function Section(props) {
         data.splice(0, 1)
         let result = [...part1, ...data]
         setValueTabElements(result)
-        props.onChangeTabElement(result)
+        props.onChangeTabSections(result)
     }
 
     const onChangeNomSection = (e) => {
         setValueNomSection(e.target.value)
         props.onChangeNomSection(e.target.value)
+    }
+
+    const changeIemeElementInfoElements = (i, val) => {
+        let data = [...valueTabElements];
+        data[i].info = val;
+        setValueTabElements(data);
+        props.onChangeTabSections(valueTabElements);
+    }
+
+    const createChangeIemeElementInfoElements = (i) => {
+        return changeIemeElementInfoElements.bind(null, i)
     }
 
     return(
@@ -44,7 +55,8 @@ function Section(props) {
         {valueTabElements.map((entrySection,indexElement) => {
                 return(
                     <div key={entrySection.idElem} className='formulairedeLaGE'>
-                        <Element typeElem={entrySection.type}></Element>
+                        <Element typeElem={entrySection.type} infoElem={entrySection.info}
+                        onChangeInfoElem={createChangeIemeElementInfoElements(indexElement)}></Element>
                         <button onClick={event => supprimerElement(indexElement)}>Supprimer</button>
                     </div>
                     )
