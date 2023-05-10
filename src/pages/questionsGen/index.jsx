@@ -38,14 +38,20 @@ function Questions()
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(inputFields)
         const fileData = JSON.stringify(inputFields);
         const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
-        console.log(blob)
-        fetch('http://localhost:8080/api/groups')
+        const formData = new FormData();
+        formData.append("file", blob, "questions_stations.json");
+        fetch('api/upload', {
+                method: 'POST',
+                body: formData
+            })
             .then(response => response.text())
             .then(data => console.log(data))
             .catch(error => console.error(error));
+            // .then(response => response.text())
+            // .then(data => console.log(data))
+            // .catch(error => console.error(error));
         // const url = URL.createObjectURL(blob);
         // const link = document.createElement("a");
         // link.download = "questions_stations.json";
