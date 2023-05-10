@@ -1,21 +1,40 @@
-import Home from './pages/home'
-import About from './pages/about'
-import Tuto from './pages/tuto'
-import Questions from './pages/questionsGen'
-import Stations from './pages/stationsGen'
-import './styles/main.css'
-import {Route, Routes} from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-function App() {
+const App = () => {
+
+  const [groups, setGroups] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    fetch('api/groups')
+      .then(response => response.json())
+      .then(data => {
+        setGroups(data);
+        setLoading(false);
+      })
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/apropos" element={<About/>}/>
-        <Route path="/questions" element={<Questions/>}/>
-        <Route path="/stations" element={<Stations/>}/>
-        <Route path="/tutoriel" element={<Tuto/>}/>
-      </Routes>
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <div className="App-intro">
+          <h2>JUG List</h2>
+          {groups.map(group =>
+            <div key={group.id}>
+              {group.name}
+            </div>
+          )}
+        </div>
+      </header>
     </div>
   );
 }

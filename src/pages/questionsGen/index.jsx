@@ -42,7 +42,10 @@ function Questions()
         const fileData = JSON.stringify(inputFields);
         const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
         console.log(blob)
-        saveAs(blob, "api/questions_stations.json");
+        fetch('http://localhost:8080/api/groups')
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
         // const url = URL.createObjectURL(blob);
         // const link = document.createElement("a");
         // link.download = "questions_stations.json";
