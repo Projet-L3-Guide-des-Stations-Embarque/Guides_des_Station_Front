@@ -41,7 +41,7 @@ function Questions()
         const fileData = JSON.stringify(inputFields);
         const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
         const formData = new FormData();
-        formData.append("file", blob, "questions_stations.json");
+        formData.append("file", blob, "questions.json");
         fetch('api/upload', {
                 method: 'POST',
                 body: formData
