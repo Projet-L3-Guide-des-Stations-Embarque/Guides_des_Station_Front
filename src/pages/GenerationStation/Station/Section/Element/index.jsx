@@ -38,7 +38,7 @@ function Element(props) {
             <>
             Texte:
             <div>
-                <input type='text'name='contenu' value={valueInfoElem} onChange={onChangeTextElement}/>
+                <textarea type='text'name='contenu' value={valueInfoElem} onChange={onChangeTextElement}/>
             </div>
             </>
         )

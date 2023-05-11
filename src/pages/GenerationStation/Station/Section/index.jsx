@@ -74,7 +74,7 @@ function Section(props) {
                     )
         })}
         <div className='formulaireFin'>
-            <button onClick={ajouterElementText}>Ajouter un élément texte à la section</button>
+            <button onClick={ajouterElementText}>Ajouter un champ texte à la section</button>
             <button onClick={ajouterElementImage}>Ajouter une image à la section</button>
         </div>
         </>
