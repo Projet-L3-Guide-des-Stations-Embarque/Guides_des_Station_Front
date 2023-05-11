@@ -42,7 +42,7 @@ function Questions()
         const fileData = JSON.stringify(inputFields);
         const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
         console.log(blob)
-        saveAs(blob, "api/questions_stations.json");
+        saveAs(blob, "api/questions.json");
         // const url = URL.createObjectURL(blob);
         // const link = document.createElement("a");
         // link.download = "questions_stations.json";
