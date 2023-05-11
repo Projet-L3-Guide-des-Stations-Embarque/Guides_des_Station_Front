@@ -65,6 +65,7 @@ function Questions()
                 <Link to="/stations">Générer les pages des stations</Link>
                 <Link to="/ge">Générer les groupes écologiques</Link>
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
+                <Link to="/modification">Modification de guide</Link>
                 <Link to="/apropos">A propos</Link>
             </div>
             <h2 className="catchPhrase">Vous pouvez ici générer la clé de determination des stations à l'aide de questions.</h2>
