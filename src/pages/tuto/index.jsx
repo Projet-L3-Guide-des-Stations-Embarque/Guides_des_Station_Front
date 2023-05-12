@@ -4,15 +4,6 @@ function Tuto()
 {
     return(
         <>
-        <div className="topnav">
-                <Link to="/">Accueil</Link>
-                <Link to="/questions">Générer les questions</Link>
-                <Link to="/stations">Générer les pages des stations</Link>
-                <Link to="/ge">Générer les groupes écologiques</Link>
-                <Link to="/tutoriel" className="active">Tutoriel pour KML</Link>
-                <Link to="/modification">Modification de guide</Link>
-                <Link to="/apropos">A propos</Link>
-            </div>
             <div className="tuto_body">
     <center><h1>Tutoriel de création de zones géographiques pour un guide forestier digital</h1></center>
 

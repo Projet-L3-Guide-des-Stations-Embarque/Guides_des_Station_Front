@@ -145,15 +145,6 @@ function MultiGe () {
 
     return (
         <>
-        <div className="topnav">
-                <Link to="/">Accueil</Link>
-                <Link to="/questions">Générer les questions</Link>
-                <Link to="/stations">Générer les pages des stations</Link>
-                <Link to="/ge" className="active">Générer les groupes écologiques</Link>
-                <Link to="/tutoriel">Tutoriel pour KML</Link>
-                <Link to="/modification">Modification de guide</Link>
-                <Link to="/apropos">A propos</Link>
-        </div>
         <h2 className="catchPhrase">Vous pouvez ici générer les différents groupes écologiques présents dans le guide.</h2>
         <div className="App">
             {TabGEs.map((entry,indexGE) => {
