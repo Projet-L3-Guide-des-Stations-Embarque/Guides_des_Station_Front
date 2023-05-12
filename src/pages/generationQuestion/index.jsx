@@ -8,17 +8,17 @@ function Questions()
     const [idSuivant, setIdSuivant] = useState(2)
 
     const [inputFamille, setFamille] = useState([
-            {idFamille:'1', nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '' }]}
+            {idparc:'1', idFamille:'1', nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '' }]}
         ]);
 
-    //const [res, setRes] = useState([ { id:'', question: '', fin:false, idoui: '', idnon: '' }]);
 
     const [guideActuel, setGuideActuel] = useState("")
     const [guideLoaded, setGuideLoaded] = useState(false)
     const [nombreGuide, setNombreGuide] = useState(0)
 
+
     const ajouterFamille = () => {
-        let newFamille = ( {idFamille:String(idSuivant), nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '' }]})
+        let newFamille = ( {idparc:String(idSuivant),idFamille:String(idSuivant), nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '' }]})
         setIdSuivant(idSuivant + 1)
         setFamille([...inputFamille, newFamille])
     }
@@ -61,10 +61,27 @@ function Questions()
         return changeIemeQuestionTab.bind(null, i)
     }
 
-    const getIemeElementOther = (i) => {
+    const getIemeElementOther = (e) => {
+        let otherV = []
+        const test = inputFamille
+        let i = 0
+        while (i < test.length){
+            let q = 0
+            while (q < test[i].question.length){
+
+                otherV.push({idov: (test[i].idFamille + test[i].question[q].id)})
+                const res = test[i].idFamille + test[i].question[q].id
+                q = q + 1 
+            }
+            i = i + 1
+        }
         return (
             <>
-                <option value='ddd'>Coucou</option>
+            {otherV.map((inputoV, indexoV) => {
+                return (
+                    <option value={inputoV.idov} key={indexoV}>{inputoV.idov}</option>
+                )
+            })}
             </>
         )
     }
@@ -96,11 +113,11 @@ function Questions()
                         const idq = idadd + quest.id
                         let idouiq = ''
                         if (quest.idoui!= idouiq){
-                            idouiq = idadd + quest.idoui
+                            idouiq = quest.idoui
                         }
                         let idnonq = ''
                         if (quest.idnon!= idnonq){
-                            idnonq = idadd + quest.idnon
+                            idnonq = quest.idnon
                         }
                         let newq = ({id: idq, question: quest.question, fin: quest.fin, idoui: idouiq, idnon: idnonq })
                         res.push(newq)
@@ -127,7 +144,7 @@ function Questions()
                     }
                     let idnonq = ""
                     if (quest.idnon!= idnonq){
-                        idnonq = idadd + quest.idnon
+                        idnonq = quest.idnon
                     }
                     let newq = ({id: idq, question: quest.question, fin: quest.fin, idoui: idouiq, idnon: idnonq })
                     res.push(newq)
@@ -200,7 +217,7 @@ function Questions()
         <h2 className="catchPhrase">Vous pouvez ici générer la clé de determination des stations à l'aide de questions.</h2>
         {inputFamille.map((entry,indexFamille) => {
                 return(
-                    <div key={entry.idFamille} className='formulairedeLaGE'>
+                    <div key={entry.idparc} className='formulairedeLaGE'>
                         <Famille familleID={entry.idFamille} tabQuestion={entry.question} familleNom={entry.nomFamille}
                         onChangeIDF={createChangeIemeElementIDF(indexFamille)}
                         onChangeTabQuestion={createChangeIemeQuestionTab(indexFamille)}
