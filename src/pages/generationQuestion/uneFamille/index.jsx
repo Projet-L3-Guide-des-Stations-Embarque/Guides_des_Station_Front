@@ -96,11 +96,6 @@ function Famille(props)
                                             <label>Redirection OUI : </label>
                                             <select name='idoui' onChange={event => handleFormChange(index, event)}>
                                                 <option value=''>Numéro suivant</option>
-                                                {inputFields.map((input, index) => {
-                                                    return (
-                                                        <option value={input.id} key={index}>{input.id}</option>
-                                                    )
-                                                })}
                                                 {props.getotherVal()}
                                             </select>
                                         </div>
@@ -108,11 +103,7 @@ function Famille(props)
                                             <label>Redirection NON : </label>
                                             <select name='idnon' onChange={event => handleFormChange(index, event)}>
                                                 <option value=''>Numéro suivant</option>
-                                                {inputFields.map((input, index) => {
-                                                    return (
-                                                        <option value={input.id} key={index}>{input.id}</option>
-                                                    )
-                                                })}
+                                                {props.getotherVal()}
                                             </select>
                                         </div>
                                     </div>
