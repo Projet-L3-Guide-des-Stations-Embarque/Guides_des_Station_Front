@@ -9,7 +9,11 @@ function Questions()
     const [inputFields, setInputFields] = useState([
         { id:'0', question: '', fin:false, idoui: '', idnon: '' }
     ])
-    
+
+    const [guideActuel, setGuideActuel] = useState("")
+    const [guideLoaded, setGuideLoaded] = useState(false)
+    const [nombreGuide, setNombreGuide] = useState(0)
+
     const handleFormChange = (index, event) => {
         let data = [...inputFields];
         if (data[index]["id"] == "") {
@@ -38,11 +42,26 @@ function Questions()
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(inputFields)
         const fileData = JSON.stringify(inputFields);
         const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
-        console.log(blob)
-        saveAs(blob, "api/questions.json");
+        const formData = new FormData();
+        formData.append("file", blob, "questions.json");
+        if (guideActuel == "guide") {
+            formData.append("dir", guideActuel + String(nombreGuide));
+            formData.append("name", document.getElementById("guideName").value);
+        } else {
+            formData.append("dir", guideActuel);
+        }
+        fetch('api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error(error));
+            // .then(response => response.text())
+            // .then(data => console.log(data))
+            // .catch(error => console.error(error));
         // const url = URL.createObjectURL(blob);
         // const link = document.createElement("a");
         // link.download = "questions_stations.json";
@@ -57,6 +76,29 @@ function Questions()
         setInputFields(data)
     }
 
+    const getGuideList = () => {
+        if (!guideLoaded) {
+            fetch('api/guidesList')
+                .then(response => response.json())
+                .then(data => {
+                    let select = document.getElementById("guideList");
+                    for (let i = 0; i < data.length; i++) {
+                        let option = document.createElement("option");
+                        option.value = data[i].url;
+                        option.text = data[i].nom;
+                        select.appendChild(option);
+                    }
+                    let option = document.createElement("option");
+                    option.value = "guide";
+                    option.text = "Nouveau Guide";
+                    select.appendChild(option);
+                    setGuideLoaded(true);
+                    setNombreGuide(data.length+1);
+                })
+                .catch(error => console.error(error));
+            }
+    }
+
     return(
         <>
             <div className="topnav">
@@ -67,6 +109,13 @@ function Questions()
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
                 <Link to="/modification">Modification de guide</Link>
                 <Link to="/apropos">A propos</Link>
+            </div>
+            <div className="choix-guide">
+                <select name="guideList" id="guideList" onChange={event => setGuideActuel(event.target.value)}>
+                    <option value="">Choisir un guide</option>
+                    {getGuideList()}
+                </select>
+                {(guideActuel == "guide") ? <input type="text" id="guideName" placeholder="Nom du guide" /> : null}
             </div>
             <h2 className="catchPhrase">Vous pouvez ici générer la clé de determination des stations à l'aide de questions.</h2>
             <div className="App">
