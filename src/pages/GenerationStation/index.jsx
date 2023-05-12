@@ -66,6 +66,7 @@ function Stations() {
                 <Link to="/ge">Générer les groupes écologiques</Link>
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
                 <Link to="/modification">Modification de guide</Link>
+                <Link to="/upload">Upload fichier</Link>
                 <Link to="/apropos">A propos</Link>
         </div>
         <h2 className="catchPhrase">Page pour générer les pages des Stations</h2>

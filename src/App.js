@@ -6,6 +6,7 @@ import MultiGe from './pages/mge'
 import ModificationG from './pages/modificationGuide'
 import Stations from './pages/GenerationStation'
 import Questions from './pages/generationQuestion'
+import Upload from './pages/uploadFichier'
 import './styles/main.css'
 import {Route, Routes} from 'react-router-dom'
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/ge" element={<MultiGe/>}/>
         <Route path="/tutoriel" element={<Tuto/>}/>
         <Route path="/modification" element={<ModificationG/>}/>
+        <Route path="/upload" element={<Upload/>}/>
       </Routes>
     </div>
   );

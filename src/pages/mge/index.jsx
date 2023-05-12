@@ -152,6 +152,7 @@ function MultiGe () {
                 <Link to="/ge" className="active">Générer les groupes écologiques</Link>
                 <Link to="/tutoriel">Tutoriel pour KML</Link>
                 <Link to="/modification">Modification de guide</Link>
+                <Link to="/upload">Upload fichier</Link>
                 <Link to="/apropos">A propos</Link>
         </div>
         <h2 className="catchPhrase">Vous pouvez ici générer les différents groupes écologiques présents dans le guide.</h2>

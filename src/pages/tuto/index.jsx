@@ -11,6 +11,7 @@ function Tuto()
                 <Link to="/ge">Générer les groupes écologiques</Link>
                 <Link to="/tutoriel" className="active">Tutoriel pour KML</Link>
                 <Link to="/modification">Modification de guide</Link>
+                <Link to="/upload">Upload fichier</Link>
                 <Link to="/apropos">A propos</Link>
             </div>
             <div className="tuto_body">
