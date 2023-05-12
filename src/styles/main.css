@@ -171,6 +171,38 @@ hr {
     width: 50%;
 }
 
+select {
+    border: 1px solid #04AA6D;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #04AA6D;
+    text-align: center;
+}
+
+.choix-guide {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #04AA6D;
+}
+
+#guideName {
+    width: 50%;
+    border: 1px solid #04AA6D;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #04AA6D;
+    text-align: center;
+}
+
 .tuto_body {
     width: 50vw;
     margin-left: 25vw;
