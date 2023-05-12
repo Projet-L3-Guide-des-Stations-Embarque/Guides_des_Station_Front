@@ -156,9 +156,6 @@ function MultiGe () {
         </div>
         <h2 className="catchPhrase">Vous pouvez ici générer les différents groupes écologiques présents dans le guide.</h2>
         <div className="App">
-            <div className='formulaireFin'>
-                <button>Charger un Ge existant</button>
-            </div>
             {TabGEs.map((entry,indexGE) => {
                 return(
                     <div key={entry.idParcours} className='formulairedeLaGE'>

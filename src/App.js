@@ -1,10 +1,11 @@
 import Home from './pages/home'
 import About from './pages/about'
 import Tuto from './pages/tuto'
-import Questions from './pages/questionsGen'
+//import Questions from './pages/questionsGen'
 import MultiGe from './pages/mge'
 import ModificationG from './pages/modificationGuide'
 import Stations from './pages/GenerationStation'
+import Questions from './pages/generationQuestion'
 import './styles/main.css'
 import {Route, Routes} from 'react-router-dom'
 
