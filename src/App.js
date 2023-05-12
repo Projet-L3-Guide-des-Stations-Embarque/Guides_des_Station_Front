@@ -23,6 +23,7 @@ function App() {
         <Link to="/ge" className={(location.pathname == "/ge")? "active" : ""}>Générer les groupes écologiques</Link>
         <Link to="/tutoriel" className={(location.pathname == "/tutoriel")? "active" : ""}>Tutoriel pour KML</Link>
         <Link to="/modification" className={(location.pathname == "/modification")? "active" : ""}>Modification de guide</Link>
+        <Link to="/upload" className={(location.pathname == "/upload")? "active" : ""}>Upload fichier</Link>
         <Link to="/apropos" className={(location.pathname == "/apropos")? "active" : ""}>A propos</Link>
       </div>
       <Routes>
