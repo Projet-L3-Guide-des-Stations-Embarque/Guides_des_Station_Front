@@ -13,6 +13,10 @@ function Questions()
 
     //const [res, setRes] = useState([ { id:'', question: '', fin:false, idoui: '', idnon: '' }]);
 
+    const [guideActuel, setGuideActuel] = useState("")
+    const [guideLoaded, setGuideLoaded] = useState(false)
+    const [nombreGuide, setNombreGuide] = useState(0)
+
     const ajouterFamille = () => {
         let newFamille = ( {idFamille:String(idSuivant), nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '' }]})
         setIdSuivant(idSuivant + 1)
@@ -133,9 +137,45 @@ function Questions()
         console.log(res)
         const fileData = JSON.stringify(res);
         const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
-        console.log(blob)
-        saveAs(blob, "api/questions.json");
+        const formData = new FormData();
+        formData.append("file", blob, "questions.json");
+        if (guideActuel == "guide") {
+            formData.append("dir", guideActuel + String(nombreGuide));
+            formData.append("name", document.getElementById("guideName").value);
+        } else {
+            formData.append("dir", guideActuel);
+        }
+        fetch('api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error(error));
  
+    }
+
+    const getGuideList = () => {
+        if (!guideLoaded) {
+            fetch('api/guidesList')
+                .then(response => response.json())
+                .then(data => {
+                    let select = document.getElementById("guideList");
+                    for (let i = 0; i < data.length; i++) {
+                        let option = document.createElement("option");
+                        option.value = data[i].url;
+                        option.text = data[i].nom;
+                        select.appendChild(option);
+                    }
+                    let option = document.createElement("option");
+                    option.value = "guide";
+                    option.text = "Nouveau Guide";
+                    select.appendChild(option);
+                    setGuideLoaded(true);
+                    setNombreGuide(data.length+1);
+                })
+                .catch(error => console.error(error));
+            }
     }
 
     return(
@@ -148,6 +188,13 @@ function Questions()
             <Link to="/tutoriel">Tutoriel pour KML</Link>
             <Link to="/modification">Modification de guide</Link>
             <Link to="/apropos">A propos</Link>
+        </div>
+        <div className="choix-guide">
+            <select name="guideList" id="guideList" onChange={event => setGuideActuel(event.target.value)}>
+                <option value="">Choisir un guide</option>
+                {getGuideList()}
+            </select>
+            {(guideActuel == "guide") ? <input type="text" id="guideName" placeholder="Nom du guide" /> : null}
         </div>
         <h2 className="catchPhrase">Vous pouvez ici générer la clé de determination des stations à l'aide de questions.</h2>
         {inputFamille.map((entry,indexFamille) => {
