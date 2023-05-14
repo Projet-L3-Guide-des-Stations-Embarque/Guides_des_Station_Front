@@ -245,10 +245,22 @@ function Questions()
             }
     }
 
+    const loadJsonFromServer = (guide) => {
+        fetch('/api/files/' + guide + '/questions.json')
+            .then(response => response.json())
+            .then(data => {
+                getquest(data);
+            })
+            .catch(error => console.error(error));
+    }
+
     return(
         <>
         <div className="choix-guide">
-            <select name="guideList" id="guideList" onChange={event => setGuideActuel(event.target.value)}>
+            <select name="guideList" id="guideList" onChange={event => {
+              setGuideActuel(event.target.value);
+              loadJsonFromServer(event.target.value);
+            } }>
                 <option value="">Choisir un guide</option>
                 {getGuideList()}
             </select>
