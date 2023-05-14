@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Plantes from './plantes';
 
 function GE (props) {    
-
+    const [valueID, setValueID] = useState(props.geid)
+    const [valueNom, setValueNom] = useState(props.nom)
+    const [valueTabP, setValueTabP] = useState(props.plantes)
+    
     const onChangeID = (e) => {
         setValueID(e.target.value)
         //POTENTIEL CONTROLE
@@ -30,7 +33,7 @@ function GE (props) {
         let data = [...valueTabP];
         data[i].descriptionfr = val;
         setValueTabP(data);
-        props.onChangeTabP(valueTabP);
+        props.onChangeTabP(data);
     }
 
     const createChangeIemeElementPNomFR = (i) => {
@@ -41,7 +44,7 @@ function GE (props) {
         let data = [...valueTabP];
         data[i].descriptionlat = val;
         setValueTabP(data);
-        props.onChangeTabP(valueTabP);
+        props.onChangeTabP(data);
     }
 
     const createChangeIemeElementPNomLT = (i) => {
@@ -63,14 +66,16 @@ function GE (props) {
         let newPlante = ({idP: String(idSuivantP), imageGE: '', descriptionfr:'', descriptionlat:''})
         setIdSuivantP(idSuivantP + 1)
         setValueTabP([...valueTabP, newPlante])
+        //TODO fix 
         props.onChangeTabP(valueTabP)
     }
 
-
-
-    const [valueID, setValueID] = useState(props.geid)
-    const [valueNom, setValueNom] = useState(props.nom)
-    const [valueTabP, setValueTabP] = useState(props.plantes)
+    useEffect(() => {
+        setValueID(props.geid)
+        setValueNom(props.nom)
+        setValueTabP(props.plantes)
+        setIdSuivantP(String(props.plantes.length))
+    }, [ props.geid, props.nom, props.plantes ])
 
     return(
         <>

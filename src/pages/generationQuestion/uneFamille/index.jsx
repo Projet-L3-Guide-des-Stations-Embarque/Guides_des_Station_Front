@@ -1,14 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 //import { Link } from "react-router-dom"
 //import { saveAs } from 'file-saver';
 
 function Famille(props)
 {
-
+    //console.log(`les props sont ${JSON.stringify(props)}`)
     const [idSuivant, setIdSuivant] = useState('b')
     const [inputFields, setInputFields] = useState(props.tabQuestion)
     const [valueIDF, setValueIDF] = useState(props.familleID)
     const [valueNomF, setValueNomF] = useState(props.familleNom)
+
+    useEffect(() => {
+        setValueNomF(props.familleNom)
+        setValueIDF(props.familleID)
+        setInputFields(props.tabQuestion)
+    }, [ props.familleNom ])
 
     const onChangeIDF = (e) => {
         setValueIDF(e.target.value)
@@ -95,14 +101,14 @@ function Famille(props)
                                         <div>
                                             <label>Redirection OUI : </label>
                                             <select name='idoui' onChange={event => handleFormChange(index, event)}>
-                                                <option value=''>Numéro suivant</option>
+                                                <option value={inputFields[index].idoui}>{inputFields[index].idoui}</option>
                                                 {props.getotherVal()}
                                             </select>
                                         </div>
                                         <div>
                                             <label>Redirection NON : </label>
                                             <select name='idnon' onChange={event => handleFormChange(index, event)}>
-                                                <option value=''>Numéro suivant</option>
+                                                <option value={inputFields[index].idnon}> {inputFields[index].idnon} </option>
                                                 {props.getotherVal()}
                                             </select>
                                         </div>

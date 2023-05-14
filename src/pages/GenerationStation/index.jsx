@@ -2,6 +2,15 @@ import { Link } from "react-router-dom"
 import { useState} from "react";
 import Station from './Station';
 
+
+const jsonS = [{}]
+
+
+
+
+
+
+
 function Stations() {
 
     const [idSuivant, setIdSuivant] = useState(2)

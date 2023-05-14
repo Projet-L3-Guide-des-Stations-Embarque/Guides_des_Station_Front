@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Plantes (props) {
 
     const [valueImage, setValueImage] = useState(props.image)
     const [valueDescFR, setValueDescFR] = useState(props.descFR)
     const [valueDescLT, setValueDescLT] = useState(props.descLT)
+
+    useEffect(() => {
+        setValueImage(props.image)
+        setValueDescFR(props.descFR)
+        setValueDescLT(props.descLT)
+    }, [ props.descFR, props.image, props.descLT ])
 
     const onChangeImage = (e) => {
         let base64string = "";
