@@ -71,7 +71,7 @@ function Stations() {
         }
 
         const loadJsonFromServer = (guide) => {
-            fetch('/api/files/' + guide + '/questions.json')
+            fetch('/api/files/' + guide + '/stations.json')
                 .then(response => response.json())
                 .then(data => {
                     getStation(data);
@@ -107,7 +107,7 @@ function Stations() {
             <div className="choix-guide">
             <select name="guideList" id="guideList" onChange={event => {
               setGuideActuel(event.target.value);
-            //   loadJsonFromServer(event.target.value);
+              loadJsonFromServer(event.target.value);
             } }>
                 <option value="">Choisir un guide</option>
                 {getGuideList()}

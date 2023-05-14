@@ -142,7 +142,7 @@ function MultiGe () {
     }
 
     const loadJsonFromServer = (guide) => {
-        fetch('/api/files/' + guide + '/questions.json')
+        fetch('/api/files/' + guide + '/ge.json')
             .then(response => response.json())
             .then(data => {
                 getGE(data);
