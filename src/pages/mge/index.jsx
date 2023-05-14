@@ -10,6 +10,10 @@ function MultiGe () {
         {idParcours:'1', id: '1', nom: '', plantes: [{idP:'0', imageGE: '', descriptionfr:'', descriptionlat: ''}]}
     ]);
 
+    const [guideActuel, setGuideActuel] = useState("")
+    const [guideLoaded, setGuideLoaded] = useState(false)
+    const [nombreGuide, setNombreGuide] = useState(0)
+
     const ajouterGE = () => {
         let geActuel = ({idParcours:String(idSuivant), id: String(idSuivant), nom: '', plantes: [{idP:'0', imageGE: '', descriptionfr:'', descriptionlat: ''}]})
         setIdSuivant(idSuivant + 1)
@@ -137,8 +141,50 @@ function MultiGe () {
         return changeIemeElementTabP.bind(null, i)
     }
 
+    const loadJsonFromServer = (guide) => {
+        fetch('/api/files/' + guide + '/questions.json')
+            .then(response => response.json())
+            .then(data => {
+                getGE(data);
+            })
+            .catch(error => console.error(error));
+    }
+
+    const getGuideList = () => {
+        if (!guideLoaded) {
+            fetch('api/guidesList')
+                .then(response => response.json())
+                .then(data => {
+                    let select = document.getElementById("guideList");
+                    for (let i = 0; i < data.length; i++) {
+                        let option = document.createElement("option");
+                        option.value = data[i].url;
+                        option.text = data[i].nom;
+                        select.appendChild(option);
+                    }
+                    let option = document.createElement("option");
+                    option.value = "guide";
+                    option.text = "Nouveau Guide";
+                    select.appendChild(option);
+                    setGuideLoaded(true);
+                    setNombreGuide(data.length+1);
+                })
+                .catch(error => console.error(error));
+            }
+    }
+
     return (
         <>
+        <div className="choix-guide">
+            <select name="guideList" id="guideList" onChange={event => {
+              setGuideActuel(event.target.value);
+              loadJsonFromServer(event.target.value);
+            } }>
+                <option value="">Choisir un guide</option>
+                {getGuideList()}
+            </select>
+            {(guideActuel == "guide") ? <input type="text" id="guideName" placeholder="Nom du guide" /> : null}
+        </div>
         <h2 className="catchPhrase">Vous pouvez ici générer les différents groupes écologiques présents dans le guide.</h2>
         <div className="App">
             {TabGEs.map((entry,indexGE) => {
