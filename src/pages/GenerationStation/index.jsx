@@ -11,7 +11,7 @@ function Stations() {
 
     const [TabStation, setTabStations] = useState([{id:'1', titre: '', elements: [{idSect:'0', titre:'',elements: [{idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]}]}]);
 
-    const getGe = (jsonGE) => {
+    const getStation = (jsonGE) => {
         setIdSuivant(jsonGE.length + 1)
         setTabStations(jsonGE)
     }
@@ -70,7 +70,7 @@ function Stations() {
             <>
         <h2 className="catchPhrase">Page pour générer les pages des Stations</h2>
         <div className="App">              
-        {/*<button onClick={event => getGe(jsonS)}>test</button>*/}  
+        {/*<button onClick={event => getStation(jsonS)}>test</button>*/}  
         {TabStation.map((entry,indexStation) => {
                 return(
                     <div key={entry.id} className='formulairedeLaGE'>
