@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-//import { Link } from "react-router-dom"
-//import { saveAs } from 'file-saver';
 
 function Famille(props)
 {

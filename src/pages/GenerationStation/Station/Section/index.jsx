@@ -1,11 +1,17 @@
 import Element from './Element';
-import { useState} from "react";
+import { useState, useEffect } from 'react'
 
 function Section(props) {
 
     const [idSuivant, setIdSuivant] = useState(2)
     const [valueNomSection, setValueNomSection] = useState(props.nomSection)
     const [valueTabElements, setValueTabElements] = useState(props.elements)
+
+    useEffect(() => {
+        setValueNomSection(props.nomSection)
+        setValueTabElements(props.elements)
+        setIdSuivant(props.elements.length)
+    }, [ props.nomSection, props.elements ])
 
     const ajouterElementText = () => {
         let newElement = ({idElem:String(idSuivant),type:'texte',contenu:'',base64:''})

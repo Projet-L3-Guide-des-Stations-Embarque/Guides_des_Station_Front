@@ -1,11 +1,17 @@
 import Section from './Section';
-import { useState} from "react";
+import { useState, useEffect } from 'react'
 
 function Station(props) {
 
     const [idSuivant, setIdSuivant] = useState(1)
     const [valueNomStation, setValueNomStation] = useState(props.nomStat)
     const [valueTabSections, setValueTabSections] = useState(props.sections)
+
+    useEffect(() => {
+        setValueNomStation(props.nomStat)
+        setValueTabSections(props.sections)
+        setIdSuivant(props.sections.length)
+    }, [ props.nomStat, props.sections ])
 
     const ajouterSection = () => {
         let newSection = ({idSect:String(idSuivant), titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]})

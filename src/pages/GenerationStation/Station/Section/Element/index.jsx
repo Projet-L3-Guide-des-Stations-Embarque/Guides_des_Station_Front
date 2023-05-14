@@ -1,8 +1,13 @@
-import { useState} from "react";
+import { useState, useEffect } from 'react'
 
 function Element(props) {
     const [valueTypeElem, setValueTypeElem] = useState(props.typeElem)
     const [valueInfoElem, setValueInfoElem] = useState(props.infoElem)
+
+    useEffect(() => {
+        setValueTypeElem(props.typeElem)
+        setValueInfoElem(props.infoElem)
+    }, [ props.typeElem, props.infoElem ])
 
     const onChangeTextElement = (e) => {
         setValueInfoElem(e.target.value)
