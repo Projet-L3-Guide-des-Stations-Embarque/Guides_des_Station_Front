@@ -22,7 +22,6 @@ function App() {
         <Link to="/stations" className={(location.pathname == "/stations")? "active" : ""}>Générer les pages des stations</Link>
         <Link to="/ge" className={(location.pathname == "/ge")? "active" : ""}>Générer les groupes écologiques</Link>
         <Link to="/tutoriel" className={(location.pathname == "/tutoriel")? "active" : ""}>Tutoriel pour KML</Link>
-        <Link to="/modification" className={(location.pathname == "/modification")? "active" : ""}>Modification de guide</Link>
         <Link to="/upload" className={(location.pathname == "/upload")? "active" : ""}>Upload fichier</Link>
         <Link to="/apropos" className={(location.pathname == "/apropos")? "active" : ""}>A propos</Link>
       </div>
@@ -33,7 +32,6 @@ function App() {
         <Route path="/stations" element={<Stations/>}/>
         <Route path="/ge" element={<MultiGe/>}/>
         <Route path="/tutoriel" element={<Tuto/>}/>
-        <Route path="/modification" element={<ModificationG/>}/>
         <Route path="/upload" element={<Upload/>}/>
       </Routes>
     </div>
