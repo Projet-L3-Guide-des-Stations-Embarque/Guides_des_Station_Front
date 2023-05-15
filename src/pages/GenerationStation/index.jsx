@@ -60,15 +60,25 @@ function Stations() {
             download(e);
     
         }
-    
+
         const download = (e) => {
             const fileData = JSON.stringify(TabStation);
-            const blob = new Blob([fileData], { type: "text/plain" });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.download = "stations.json";
-            link.href = url;
-            link.click();
+            const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
+            const formData = new FormData();
+            formData.append("file", blob, "stations.json");
+            if (guideActuel == "guide") {
+                formData.append("dir", guideActuel + String(nombreGuide));
+                formData.append("name", document.getElementById("guideName").value);
+            } else {
+                formData.append("dir", guideActuel);
+            }
+            fetch('api/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error(error));
         }
 
         const loadJsonFromServer = (guide) => {

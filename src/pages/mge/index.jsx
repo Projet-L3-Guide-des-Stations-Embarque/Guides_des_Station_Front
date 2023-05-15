@@ -104,13 +104,25 @@ function MultiGe () {
             }
         }
         strfile = strfile + "]\n";
-        const blob = new Blob([strfile], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.download = "ge.json";
-        link.href = url;
-        link.click();
+        const blob = new Blob([strfile], { type: "text/plain;charset=utf-8" });
+        const formData = new FormData();
+        formData.append("file", blob, "ge.json");
+        if (guideActuel == "guide") {
+            formData.append("dir", guideActuel + String(nombreGuide));
+            formData.append("name", document.getElementById("guideName").value);
+        } else {
+            formData.append("dir", guideActuel);
+        }
+        fetch('api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error(error));
+
     }
+
 
     const changeIemeElementID = (i, val) => {
         let data = [...TabGEs];
