@@ -3,7 +3,7 @@ import { useState} from "react";
 import Station from './Station';
 
 
-//const jsonS = [{id:'1', titre: 'Titre', elements: [{idSect:'4', titre:'test',elements: [{idElem:'0',type:'texte',contenu:'coucou',base64:''},{idElem:'1',type:'image',contenu:'',base64:'dddd'}]}]}]
+//const jsonS = [{id:'1', titre: 'Titre', elements: [{idSect:'4', titre:'test',elements: [{idElem:'0',type:'texte',contenu:'coucou',base64:''},{idElem:'1',type:'image',contenu:'',base64:'dddd'}] }]}]
 
 function Stations() {
 
@@ -18,6 +18,7 @@ function Stations() {
     const getStation = (jsonGE) => {
         setIdSuivant(jsonGE.length + 1)
         setTabStations(jsonGE)
+
     }
 
     

@@ -72,7 +72,7 @@ function Section(props) {
         {valueTabElements.map((entrySection,indexElement) => {
                 return(
                     <div key={entrySection.idElem} className='formulairedeLaGE'>
-                        <Element typeElem={entrySection.type} infoElem={entrySection.info}
+                        <Element typeElem={entrySection.type} infoElem={entrySection.contenu}
                         onChangeContenuElem={createChangeIemeElementContenuElements(indexElement)}
                         onChangeBase64Elem={createChangeIemeElementBase64Elements(indexElement)}></Element>
                         <button onClick={event => supprimerElement(indexElement)}>Supprimer</button>
