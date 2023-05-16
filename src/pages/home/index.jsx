@@ -7,7 +7,7 @@ function Home()
         <>
             <div className="content">
                 <p>
-                    Pour créer un guide vous pouvez <Link to="/questions">Générer les questions</Link> ainsi que <Link to="/stations">Générer les pages des stations</Link>.
+                    Pour créer un guide vous pouvez <Link to="/questions">Gestionnaire des questions</Link> ainsi que <Link to="/stations">Gestionnaire des pages des stations</Link>.
                 </p>
             </div>
 
