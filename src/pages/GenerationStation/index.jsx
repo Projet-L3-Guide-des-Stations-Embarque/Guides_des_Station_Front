@@ -9,7 +9,7 @@ function Stations() {
 
     const [idSuivant, setIdSuivant] = useState(2)
 
-    const [TabStation, setTabStations] = useState([{id:'1', veref:'red', titre: '', elements: [{idSect:'0', titre:'',elements: [{idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]}]}]);
+    const [TabStation, setTabStations] = useState([{id:'1', idStation:'', veref:'red', titre: '', elements: [{idSect:'0', titre:'',elements: [{idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]}]}]);
 
     const [guideActuel, setGuideActuel] = useState('');
     const [guideLoaded, setGuideLoaded] = useState(false)
@@ -24,8 +24,17 @@ function Stations() {
     
     const getStation = (jsonGE) => {
         let res  = jsonGE
-        for (const setveref in jsonGE){
-            jsonGE[setveref].veref = 'green'
+        const regexp = /[1-9]-[1-9]/g
+        for (const setInfo in res){
+            const found = res[setInfo].titre.match(regexp)
+            if (found != null){
+                res[setInfo].id = found[0]
+                const newTitle = res[setInfo].titre.substring(0,found[0].length -1)
+                res[setInfo].titre = newTitle
+                res[setInfo].veref = 'green'
+            } else {
+                res[setInfo].veref = 'red'
+            }
         }
         setIdSuivant(res.length + 1)
         setTabStations(res)
@@ -35,7 +44,7 @@ function Stations() {
 
     
     const ajouterStation = () => {
-        let newStation = ({id:String(idSuivant), veref:'red', titre: '', elements: [ {idSect:'0',titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}] }] })
+        let newStation = ({id:String(idSuivant), idStation:'', veref:'red', titre: '', elements: [ {idSect:'0',titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}] }] })
         setIdSuivant(idSuivant + 1)
         setTabStations([...TabStation, newStation])
     }
@@ -53,6 +62,12 @@ function Stations() {
             data[i].elements = val;
             setTabStations(data);
         }
+
+        const changeIemeElementID = (i, val) => {
+            let data = [...TabStation];
+            data[i].idStation = val;
+            setTabStations(data);
+        }
     
         const changeIemeElementNomStation = (i, val) => {
             let data = [...TabStation];
@@ -64,6 +79,10 @@ function Stations() {
             let data = [...TabStation];
             data[i].veref = val;
             setTabStations(data);
+        }
+
+        const createChangeIemeElementID = (i) => {
+            return changeIemeElementID.bind(null, i)
         }
 
         const createChangeIemeElementNomStation = (i) => {
@@ -91,7 +110,12 @@ function Stations() {
                     )
                 }
             }
-            const fileData = JSON.stringify(TabStation);
+            let res = TabStation
+            for (const indiceSetNom in res){
+                const newtitre = res[indiceSetNom].idStation + " " + res[indiceSetNom].titre
+                res[indiceSetNom].titre = newtitre
+            }
+            const fileData = JSON.stringify(res);
             const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
             const formData = new FormData();
             formData.append("file", blob, "stations.json");
@@ -162,8 +186,9 @@ function Stations() {
         {TabStation.map((entry,indexStation) => {
                 return(
                     <div key={entry.id} className='formulairedeLaGE'>
-                        <Station nomStat={entry.titre} sections={entry.elements} verf={entry.veref}
+                        <Station nomStat={entry.titre} sections={entry.elements} verf={entry.veref} idS={entry.idStation}
                         onChangeNomStation={createChangeIemeElementNomStation(indexStation)}
+                        onChangeIDStation={createChangeIemeElementID(indexStation)}
                         onChangeVerefNomStation={createChangeIemeElementVerefNomStation(indexStation)}
                         onChangeTabSections={createChangeIemeElementTabSections(indexStation)}></Station>
                         <button onClick={event => SupprimerStation(indexStation)}>Supprimer</button>
