@@ -196,6 +196,10 @@ button:hover {
     cursor: pointer;
 }
 
+.centered {
+    text-align: center;
+}
+
 input {
     border: 1px solid #04AA6D;
     border-radius: 5px;

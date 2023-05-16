@@ -67,7 +67,7 @@ function Upload(){
             {(guideActuel == "guide") ? <input type="text" id="guideName" placeholder="Nom du guide" /> : null}
         </div>
 
-        <div>
+        <div className='centered'>
             <form>
                 <label>
                     Fichier: 
