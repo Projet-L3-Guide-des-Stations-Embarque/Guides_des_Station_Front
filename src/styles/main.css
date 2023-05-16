@@ -180,7 +180,7 @@
     align-items: center;
 }
 
-button {
+button, .submitButton{
     border: 1px solid #04AA6D;
     border-radius: 5px;
     padding: 10px;
@@ -190,7 +190,7 @@ button {
     background-color: white;
 }
 
-button:hover {
+button:hover , .submitButton:hover{
     background-color: #04AA6D;
     color: white;
     cursor: pointer;

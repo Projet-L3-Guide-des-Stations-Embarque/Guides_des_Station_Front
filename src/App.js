@@ -7,6 +7,7 @@ import ModificationG from './pages/modificationGuide'
 import Stations from './pages/GenerationStation'
 import Questions from './pages/generationQuestion'
 import Upload from './pages/uploadFichier'
+import Reinitialiser from './pages/reinitialisationGuides'
 import './styles/main.css'
 import {Route, Routes} from 'react-router-dom'
 import {Link, useLocation} from 'react-router-dom'
@@ -33,6 +34,7 @@ function App() {
         <Route path="/ge" element={<MultiGe/>}/>
         <Route path="/tutoriel" element={<Tuto/>}/>
         <Route path="/upload" element={<Upload/>}/>
+        <Route path="/reinitialisationGuides" element={<Reinitialiser/>}/>
       </Routes>
     </div>
   );
