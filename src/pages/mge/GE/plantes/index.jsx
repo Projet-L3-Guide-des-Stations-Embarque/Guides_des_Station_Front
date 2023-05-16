@@ -39,7 +39,7 @@ function Plantes (props) {
 
     return(
         <>
-        <div>
+        <div className='centered'>
             Image de la plante:
             <div>
             <input type='file' name='imageP' value={valueImage} onChange={onChangeImage}/>
