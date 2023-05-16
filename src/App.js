@@ -18,9 +18,9 @@ function App() {
     <div className="App">
       <div className="topnav">
         <Link to="/" className={(location.pathname == "/")? "active" : ""}>Accueil</Link>
-        <Link to="/questions" className={(location.pathname == "/questions")? "active" : ""}>Gestion des questions</Link>
-        <Link to="/stations" className={(location.pathname == "/stations")? "active" : ""}>Gestion des pages des stations</Link>
-        <Link to="/ge" className={(location.pathname == "/ge")? "active" : ""}>Gestion des groupes écologiques</Link>
+        <Link to="/questions" className={(location.pathname == "/questions")? "active" : ""}>Gestionnaire des questions</Link>
+        <Link to="/stations" className={(location.pathname == "/stations")? "active" : ""}>Gestionnaire des pages des stations</Link>
+        <Link to="/ge" className={(location.pathname == "/ge")? "active" : ""}>Gestionnaire des groupes écologiques</Link>
         <Link to="/tutoriel" className={(location.pathname == "/tutoriel")? "active" : ""}>Tutoriel pour KML</Link>
         <Link to="/upload" className={(location.pathname == "/upload")? "active" : ""}>Envoyer un fichier au serveur</Link>
         <Link to="/apropos" className={(location.pathname == "/apropos")? "active" : ""}>A propos</Link>

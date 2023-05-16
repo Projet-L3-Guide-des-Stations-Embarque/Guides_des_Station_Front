@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState } from 'react'
+import Popup from "reactjs-popup"
+import "reactjs-popup/dist/index.css"
 
 function Upload(){
 
@@ -57,6 +59,8 @@ function Upload(){
         }
     }
 
+    
+
     return(
         <>
         <div className="choix-guide">
@@ -74,7 +78,33 @@ function Upload(){
                     <input type="file" name="file" />
                 </label>
                 <br />
-                <button onClick={submit}>Envoyer</button>
+                {/* <button onClick={submit}>Envoyer</button> */}
+                <Popup
+                trigger={<button type='button'>EnvoyerTest</button>}
+                modal
+                nested
+                >
+                    {close => (
+                        <div className="modal">
+                            <button className="close" onClick={close}>
+                                &times;
+                            </button>
+                            <div className="header"> Confirmation de téléversement </div>
+                            <div className="content">
+                                {" "}
+                                Vous vous apprêtez à téléverser un fichier sur le serveur de l'application.
+                                Si ce fichier existait déjà sur le serveur pour ce guide, il sera remplacé.
+                                Êtes-vous sûr de vouloir continuer?
+                            </div>
+                            <div className="actions">
+                                <button className="validate" onClick={submit}>Valider</button>
+                                <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
+                                    Annuler
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </Popup>
             </form>
         </div>
         </>
