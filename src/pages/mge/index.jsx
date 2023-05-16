@@ -14,6 +14,13 @@ function MultiGe () {
     const [guideLoaded, setGuideLoaded] = useState(false)
     const [nombreGuide, setNombreGuide] = useState(0)
 
+    function changeGuide(guide) {
+        localStorage.setItem("guideActuel", guide);
+        setGuideActuel(guide);
+        let select = document.getElementById("guideList");
+        select.value = guide;
+    }
+
     const ajouterGE = () => {
         let geActuel = ({idParcours:String(idSuivant), id: String(idSuivant), nom: '', plantes: [{idP:'0', imageGE: '', descriptionfr:'', descriptionlat: ''}]})
         setIdSuivant(idSuivant + 1)
@@ -179,7 +186,8 @@ function MultiGe () {
                     option.text = "Nouveau Guide";
                     select.appendChild(option);
                     setGuideLoaded(true);
-                    setNombreGuide(data.length+1);
+                    setNombreGuide(data.length+1);changeGuide(localStorage.getItem('guideActuel') || '');
+                    loadJsonFromServer(localStorage.getItem('guideActuel') || '');
                 })
                 .catch(error => console.error(error));
             }
@@ -189,7 +197,7 @@ function MultiGe () {
         <>
         <div className="choix-guide">
             <select name="guideList" id="guideList" onChange={event => {
-              setGuideActuel(event.target.value);
+              changeGuide(event.target.value);
               loadJsonFromServer(event.target.value);
             } }>
                 <option value="">Choisir un guide</option>

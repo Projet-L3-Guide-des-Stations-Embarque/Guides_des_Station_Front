@@ -11,10 +11,17 @@ function Stations() {
 
     const [TabStation, setTabStations] = useState([{id:'1', titre: '', elements: [{idSect:'0', titre:'',elements: [{idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]}]}]);
 
-    const [guideActuel, setGuideActuel] = useState("")
+    const [guideActuel, setGuideActuel] = useState('');
     const [guideLoaded, setGuideLoaded] = useState(false)
     const [nombreGuide, setNombreGuide] = useState(0)
 
+    function changeGuide(guide) {
+        localStorage.setItem("guideActuel", guide);
+        setGuideActuel(guide);
+        let select = document.getElementById("guideList");
+        select.value = guide;
+    }
+    
     const getStation = (jsonGE) => {
         setIdSuivant(jsonGE.length + 1)
         setTabStations(jsonGE)
@@ -108,6 +115,8 @@ function Stations() {
                         select.appendChild(option);
                         setGuideLoaded(true);
                         setNombreGuide(data.length+1);
+                        changeGuide(localStorage.getItem('guideActuel') || '');
+                        loadJsonFromServer(localStorage.getItem('guideActuel') || '');
                     })
                     .catch(error => console.error(error));
                 }
@@ -117,7 +126,7 @@ function Stations() {
             <>
             <div className="choix-guide">
             <select name="guideList" id="guideList" onChange={event => {
-              setGuideActuel(event.target.value);
+              changeGuide(event.target.value);
               loadJsonFromServer(event.target.value);
             } }>
                 <option value="">Choisir un guide</option>

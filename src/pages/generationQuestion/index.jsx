@@ -13,10 +13,16 @@ function Questions()
         ]);
 
 
-    const [guideActuel, setGuideActuel] = useState("")
+    const [guideActuel, setGuideActuel] = useState('');
     const [guideLoaded, setGuideLoaded] = useState(false)
     const [nombreGuide, setNombreGuide] = useState(0)
 
+    function changeGuide(guide) {
+        localStorage.setItem("guideActuel", guide);
+        setGuideActuel(guide);
+        let select = document.getElementById("guideList");
+        select.value = guide;
+    }
 
     const ajouterFamille = () => {
         let newFamille = ( {idparc:String(idSuivant),idFamille:String(idSuivant), nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '' }]})
@@ -240,9 +246,11 @@ function Questions()
                     select.appendChild(option);
                     setGuideLoaded(true);
                     setNombreGuide(data.length+1);
+                    changeGuide(localStorage.getItem("guideActuel") || '');
+                    loadJsonFromServer(localStorage.getItem("guideActuel") || '');
                 })
                 .catch(error => console.error(error));
-            }
+        }
     }
 
     const loadJsonFromServer = (guide) => {
@@ -258,7 +266,7 @@ function Questions()
         <>
         <div className="choix-guide">
             <select name="guideList" id="guideList" onChange={event => {
-              setGuideActuel(event.target.value);
+              changeGuide(event.target.value)
               loadJsonFromServer(event.target.value);
             } }>
                 <option value="">Choisir un guide</option>
