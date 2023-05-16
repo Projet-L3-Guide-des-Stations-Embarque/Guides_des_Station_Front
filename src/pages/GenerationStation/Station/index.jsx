@@ -5,6 +5,7 @@ function Station(props) {
 
     const [idSuivant, setIdSuivant] = useState(1)
     const [valueNomStation, setValueNomStation] = useState(props.nomStat)
+    const [valueVerefNStation, setValueVerefNStation] = useState(props.verf)
     const [valueTabSections, setValueTabSections] = useState(props.sections)
 
     useEffect(() => {
@@ -30,8 +31,20 @@ function Station(props) {
     }
 
     const onChangeNomStation = (e) => {
+        let res = 'red'
         setValueNomStation(e.target.value)
-        props.onChangeNomStation(e.target.value)
+        const regexp = /[1-9]-[1-9]+ \S.*$/g
+        const found = e.target.value.match(regexp)
+        if(found != null){
+            setValueVerefNStation('green')
+            res = 'green'
+        } else {
+            setValueVerefNStation('red')
+        }
+        props.onChangeVerefNomStation(valueVerefNStation);
+        if(res == 'green'){
+            props.onChangeNomStation(e.target.value)
+        }
     }
 
     const changeIemeElementNomSection = (i, val) => {
@@ -60,7 +73,7 @@ function Station(props) {
         <>
         Nom de la station :
         <div>
-            <input type='text'name='nomStation' value={valueNomStation} onChange={onChangeNomStation}/>
+            <input type='text'name='nomStation' value={valueNomStation} style={{ backgroundColor: valueVerefNStation, color:'white'}} onChange={onChangeNomStation}/>
         </div>
         {valueTabSections.map((entryStation,indexSection) => {
                 return(

@@ -9,7 +9,7 @@ function Stations() {
 
     const [idSuivant, setIdSuivant] = useState(2)
 
-    const [TabStation, setTabStations] = useState([{id:'1', titre: '', elements: [{idSect:'0', titre:'',elements: [{idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]}]}]);
+    const [TabStation, setTabStations] = useState([{id:'1', veref:'red', titre: '', elements: [{idSect:'0', titre:'',elements: [{idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]}]}]);
 
     const [guideActuel, setGuideActuel] = useState('');
     const [guideLoaded, setGuideLoaded] = useState(false)
@@ -23,14 +23,19 @@ function Stations() {
     }
     
     const getStation = (jsonGE) => {
-        setIdSuivant(jsonGE.length + 1)
-        setTabStations(jsonGE)
+        let res  = jsonGE
+        for (const setveref in jsonGE){
+            jsonGE[setveref].veref = 'green'
+        }
+        setIdSuivant(res.length + 1)
+        setTabStations(res)
+
 
     }
 
     
     const ajouterStation = () => {
-        let newStation = ({id:String(idSuivant), titre: '', elements: [ {idSect:'0',titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}] }] })
+        let newStation = ({id:String(idSuivant), veref:'red', titre: '', elements: [ {idSect:'0',titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}] }] })
         setIdSuivant(idSuivant + 1)
         setTabStations([...TabStation, newStation])
     }
@@ -55,8 +60,18 @@ function Stations() {
             setTabStations(data);
         }
 
+        const changeIemeElementVerefNomStation = (i, val) => {
+            let data = [...TabStation];
+            data[i].veref = val;
+            setTabStations(data);
+        }
+
         const createChangeIemeElementNomStation = (i) => {
             return changeIemeElementNomStation.bind(null, i)
+        }
+
+        const createChangeIemeElementVerefNomStation = (i) => {
+            return changeIemeElementVerefNomStation.bind(null, i)
         }
 
         const createChangeIemeElementTabSections = (i) => {
@@ -69,6 +84,13 @@ function Stations() {
         }
 
         const download = (e) => {
+            for (const verification in TabStation){
+                if(TabStation[verification].veref == 'red'){
+                    return (
+                        alert("Erreur dans le format d'un nom de station...\nVeuillez corriger l'erreur puis réessayer.\n(Exemple de format à respecter pour le nom d'une station: '1-1 Frênaies-aulnaies marécageuses')")
+                    )
+                }
+            }
             const fileData = JSON.stringify(TabStation);
             const blob = new Blob([fileData], { type: "text/plain;charset=utf-8" });
             const formData = new FormData();
@@ -140,8 +162,9 @@ function Stations() {
         {TabStation.map((entry,indexStation) => {
                 return(
                     <div key={entry.id} className='formulairedeLaGE'>
-                        <Station nomStat={entry.titre} sections={entry.elements}
+                        <Station nomStat={entry.titre} sections={entry.elements} verf={entry.veref}
                         onChangeNomStation={createChangeIemeElementNomStation(indexStation)}
+                        onChangeVerefNomStation={createChangeIemeElementVerefNomStation(indexStation)}
                         onChangeTabSections={createChangeIemeElementTabSections(indexStation)}></Station>
                         <button onClick={event => SupprimerStation(indexStation)}>Supprimer</button>
                     </div>
