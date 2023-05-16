@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { Link } from "react-router-dom"
 import { saveAs } from 'file-saver';
 
+
 function Questions()
 {
     const [idSuivant, setIdSuivant] = useState(1)
-
     const [inputFields, setInputFields] = useState([
         { id:'0', question: '', fin:false, idoui: '', idnon: '' }
     ])
@@ -36,7 +36,6 @@ function Questions()
     const addFields = () => {
         let newfield = {id:String(idSuivant), question: '', fin:false, idoui: '', idnon: '' }
         setIdSuivant(idSuivant + 1)
-    
         setInputFields([...inputFields, newfield])
     }
 
@@ -59,14 +58,6 @@ function Questions()
             .then(response => response.text())
             .then(data => alert(data))
             .catch(error => console.error(error));
-            // .then(response => response.text())
-            // .then(data => console.log(data))
-            // .catch(error => console.error(error));
-        // const url = URL.createObjectURL(blob);
-        // const link = document.createElement("a");
-        // link.download = "questions_stations.json";
-        // link.href = url;
-        // link.click();
     }
 
     const removeFields = (index, e) => {

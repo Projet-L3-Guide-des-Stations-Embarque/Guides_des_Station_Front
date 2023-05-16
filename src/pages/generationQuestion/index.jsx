@@ -9,7 +9,7 @@ function Questions()
     const [idSuivant, setIdSuivant] = useState(1)
     const [tabAutreRecup, setTabAutreRecup] = useState([])
     const [inputFamille, setFamille] = useState([
-            {idparc:'0', idFamille:'0', nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '' }]}
+            {idparc:'0', idFamille:'0', nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]}
         ]);
 
 
@@ -19,7 +19,7 @@ function Questions()
 
 
     const ajouterFamille = () => {
-        let newFamille = ( {idparc:String(idSuivant),idFamille:String(idSuivant), nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '' }]})
+        let newFamille = ( {idparc:String(idSuivant),idFamille:String(idSuivant), nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]})
         setIdSuivant(idSuivant + 1)
         setFamille([...inputFamille, newFamille])
     }
@@ -59,6 +59,7 @@ function Questions()
     }
 
     const createChangeIemeQuestionTab = (i) => {
+        console.log("OK")
         return changeIemeQuestionTab.bind(null, i)
     }
 
@@ -115,10 +116,14 @@ function Questions()
                 if(jsonQ[parcQ].id.length > 1 && jsonQ[parcQ].id.charAt(0)== idsetF){
                     let newQuest = {}
                     if(jsonQ[parcQ].id.length == 2){
-                        newQuest = { id:jsonQ[parcQ].id.charAt(1), question:jsonQ[parcQ].question, fin:jsonQ[parcQ].fin, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon }
+                        newQuest = { id:jsonQ[parcQ].id.charAt(1), question:jsonQ[parcQ].question, fin:jsonQ[parcQ].fin, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'red'}
                     } else {
-                        newQuest = { id:jsonQ[parcQ].id, question:jsonQ[parcQ].question, fin:jsonQ[parcQ].fin, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon }
-                    }
+                        if(jsonQ[parcQ].fin == true){
+                            newQuest = { id:jsonQ[parcQ].id, question:jsonQ[parcQ].question, fin:true, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'green'}
+                        } else {
+                            newQuest = { id:jsonQ[parcQ].id, question:jsonQ[parcQ].question, fin:false, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'red'}
+                        }
+                        }
                    quest = [...quest,newQuest]
                     res[parcsetF].question = quest
                 }
@@ -133,6 +138,19 @@ function Questions()
 
 
     const submit = (e) => {
+        //VERIFICATION CHAMPS CORRECTS
+        for (const f in inputFamille){
+            for (const e in inputFamille[f].question){
+                const eATester = inputFamille[f].question[e]
+                if(eATester.fin == true && eATester.veref == "red"){
+                    return (
+                        alert("Erreur dans le format d'un numéro de station...\nVeuillez corriger l'erreur puis réessayer.\n(Exemple de format à respecter pour le numéro d'une station: '1-1')")
+                    )
+                }
+            }
+        }
+        //////////////////////////////
+        
         let res = []
         //On vérifie qu'il y a des éléments à envoyer
         if(inputFamille.length > 0){

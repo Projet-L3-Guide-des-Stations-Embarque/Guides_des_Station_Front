@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 
 function Famille(props)
 {
-    //console.log(`les props sont ${JSON.stringify(props)}`)
     const [idSuivant, setIdSuivant] = useState('b')
     const [inputFields, setInputFields] = useState(props.tabQuestion)
     const [valueIDF, setValueIDF] = useState(props.familleID)
@@ -34,6 +33,24 @@ function Famille(props)
         props.onChangeTabQuestion(inputFields)
     }
 
+    const IDFormChange = (index, event) => {
+        let data = [...inputFields];
+        let res = 'red'
+        data[index][event.target.name] = event.target.value;
+        const regexp = /[1-9]-[1-9]+$/g
+        const found = event.target.value.match(regexp)
+        if(found != null){
+            data[index]['veref'] = 'green'
+            res = 'green'
+        } else {
+                data[index]['veref'] = 'red'
+        }
+        setInputFields(data);
+        if(res == 'green'){
+            props.onChangeTabQuestion(inputFields)
+        }
+    }
+
     const handleCheckBoxChange = (index, event) => {
         let data = [...inputFields];
         data[index][event.target.name] = event.target.checked;
@@ -46,7 +63,7 @@ function Famille(props)
     }
 
     const addFields = () => {
-        let newfield = {id:String(idSuivant), question: '', fin:false, idoui: '', idnon: '' }
+        let newfield = {id:String(idSuivant), question: '', fin:false, idoui: '', idnon: '' , veref:'red' }
         setIdSuivant(String.fromCharCode(String(idSuivant).charCodeAt(0) + 1))
     
         setInputFields([...inputFields, newfield])
@@ -118,8 +135,9 @@ function Famille(props)
                                     <input 
                                         type='text'
                                         name='id'
+                                        style={{ backgroundColor: input.veref, color:'white'}}
                                         value={input.id}
-                                        onChange={event => handleFormChange(index, event)}
+                                        onChange={event => IDFormChange(index, event)}
                                     />
                                     <textarea
                                         name='question'
