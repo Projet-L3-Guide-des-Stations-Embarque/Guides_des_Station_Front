@@ -34,7 +34,7 @@ function Station(props) {
 
     const onChangeIDFamille = (e) => {
         let res = 'red' 
-        const regexp = /[1-9]-[1-9]$/g
+        const regexp = /[1-9]-[1-9]+$/g
         const found = e.target.value.match(regexp)
         if(found != null){
             setValueVerefNStation('green')
