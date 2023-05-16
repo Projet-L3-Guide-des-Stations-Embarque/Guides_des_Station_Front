@@ -217,7 +217,9 @@ function Stations() {
                                 Êtes-vous sûr de vouloir continuer?
                             </div>
                             <div className="actions">
-                                <button className="validate" onClick={submit}>Valider</button>
+                                <button className="validate" onClick={event => {close(); submit(event);}}>
+                                    Valider
+                                </button>
                                 <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
                                     Annuler
                                 </button>
