@@ -9,7 +9,7 @@ function Questions()
     const [idSuivant, setIdSuivant] = useState(1)
     const [tabAutreRecup, setTabAutreRecup] = useState([])
     const [inputFamille, setFamille] = useState([
-            {idparc:'0', idFamille:'0', nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]}
+            {idparc:'0', idFamille:'0', nomFamille:'', couleurFamille:'#ffffff', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]}
         ]);
 
 
@@ -25,7 +25,7 @@ function Questions()
     }
 
     const ajouterFamille = () => {
-        let newFamille = ( {idparc:String(idSuivant),idFamille:String(idSuivant), nomFamille:'', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]})
+        let newFamille = ( {idparc:String(idSuivant),idFamille:String(idSuivant), nomFamille:'',couleurFamille:'#fffffff', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]})
         setIdSuivant(idSuivant + 1)
         setFamille([...inputFamille, newFamille])
     }
@@ -65,8 +65,17 @@ function Questions()
     }
 
     const createChangeIemeQuestionTab = (i) => {
-        console.log("OK")
         return changeIemeQuestionTab.bind(null, i)
+    }
+
+    const createChangeIemeElementCouleurF =(i) => {
+        return changeIemeElementCouleurF.bind(null, i)
+    }
+
+    const changeIemeElementCouleurF = (i, val) => {
+        let data = [...inputFamille];
+        data[i].couleurFamille = val;
+        setFamille(data);
     }
 
     const getIemeElementOther = (e) => {
@@ -102,7 +111,79 @@ function Questions()
         )
     }
 
-    const getquest = (jsonQ) => {
+
+    const getQuest = (guide) => {
+        let res = []
+        let resautre = []
+        fetch('/api/files/' + guide + '/questions.json')
+            .then(response => response.json())
+            .then(data => {
+                const jsonQ = data
+                
+                for (let parcF =0; parcF<jsonQ.length; parcF++ ){
+                    if(jsonQ[parcF].id.length == 1){
+                        const newelem = {idparc:jsonQ[parcF].id, idFamille:jsonQ[parcF].id, nomFamille:jsonQ[parcF].question, question: []}
+                        res = [...res,newelem]
+                    } else{
+                        if(jsonQ[parcF].id == "altAdret" || jsonQ[parcF].id == "altUbac"){
+                            resautre.push(jsonQ[parcF])
+                        }
+                    }
+                }
+                for (let parcsetF=0; parcsetF<res.length; parcsetF++){
+                    const idsetF = res[parcsetF].idparc
+                    let quest = []
+                    for (let parcQ =0; parcQ<jsonQ.length; parcQ++ ){
+                        if(jsonQ[parcQ].id.length > 1 && jsonQ[parcQ].id.charAt(0)== idsetF){
+                            let newQuest = {}
+                            if(jsonQ[parcQ].id.length == 2){
+                                newQuest = { id:jsonQ[parcQ].id.charAt(1), question:jsonQ[parcQ].question, fin:jsonQ[parcQ].fin, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'red'}
+                            } else {
+                                if(jsonQ[parcQ].fin == true){
+                                    newQuest = { id:jsonQ[parcQ].id, question:jsonQ[parcQ].question, fin:true, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'green'}
+                                } else {
+                                    newQuest = { id:jsonQ[parcQ].id, question:jsonQ[parcQ].question, fin:false, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'red'}
+                                }
+                                }
+                        quest = [...quest,newQuest]
+                            res[parcsetF].question = quest
+                        }
+                    }
+
+                }
+
+                fetch('/api/files/' + guide + '/couleursFamillesStations.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const jsonC = data
+                        for (const parcC in res){
+                            //console.log("valeur:" + JSON.stringify(res[parcC]))
+                            const comp = res[parcC].idFamille
+                            for (const parcC2 in jsonC){
+                                if (jsonC[parcC2].idFamille == comp){
+                                    res[parcC].couleurFamille = jsonC[parcC2].couleur
+                                    
+                                }
+                            }
+                            /*if (res[parcC].couleurFamille == undefined){
+                                res[parcC].couleurFamille = "#ffffff"
+                            }*/
+                        }
+                        setTabAutreRecup(resautre)
+                        setIdSuivant(res.length)
+                        setFamille(res)
+                    })
+                    .catch(error => console.error(error));
+            })
+            .catch(error => console.error(error));
+            
+
+            
+    }
+
+
+
+    /*const getquest = (jsonQ) => {
         let res = []
         let resautre = []
         for (let parcF =0; parcF<jsonQ.length; parcF++ ){
@@ -139,7 +220,7 @@ function Questions()
         setTabAutreRecup(resautre)
         setIdSuivant(res.length)
         setFamille(res)
-    }
+    }*/
 
 
 
@@ -158,6 +239,7 @@ function Questions()
         //////////////////////////////
         
         let res = []
+        let resColor = []
         //On vérifie qu'il y a des éléments à envoyer
         if(inputFamille.length > 0){
 
@@ -241,9 +323,35 @@ function Questions()
                 body: formData
             })
             .then(response => response.text())
-            .then(data => alert(data))
+            .then(data => {
+                for(const parcoursColor in inputFamille){
+                    //console.log("test" + inputFamille[parcoursColor].couleurFamille)
+                    let newVal = {couleur: inputFamille[parcoursColor].couleurFamille, idFamille: inputFamille[parcoursColor].idFamille}
+                    resColor.push(newVal)
+                }   
+                //console.log(JSON.stringify(resColor))
+                const fileColor = JSON.stringify(resColor);
+                const blobColor = new Blob([fileColor], { type: "text/plain;charset=utf-8" });
+                const formDataColor = new FormData();
+                formDataColor.append("file", blobColor, "couleursFamillesStations.json");
+                if (guideActuel == "guide") {
+                    formDataColor.append("dir", guideActuel + String(nombreGuide));
+                    formDataColor.append("name", document.getElementById("guideName").value);
+                } else {
+                    formDataColor.append("dir", guideActuel);
+                }
+                fetch('api/upload', {
+                        method: 'POST',
+                        body: formDataColor
+                    })
+                    .then(response => response.text())
+                    .then(data => alert(data))
+                    .catch(error => console.error(error));
+            })
             .catch(error => console.error(error));
  
+        
+        
     }
 
     const getGuideList = () => {
@@ -265,27 +373,29 @@ function Questions()
                     setGuideLoaded(true);
                     setNombreGuide(data.length+1);
                     changeGuide(localStorage.getItem("guideActuel") || '');
-                    loadJsonFromServer(localStorage.getItem("guideActuel") || '');
+                    getQuest(localStorage.getItem("guideActuel") || '');
+                    //loadJsonFromServer(localStorage.getItem("guideActuel") || '');
                 })
                 .catch(error => console.error(error));
         }
     }
 
-    const loadJsonFromServer = (guide) => {
+    /*const loadJsonFromServer = (guide) => {
         fetch('/api/files/' + guide + '/questions.json')
             .then(response => response.json())
             .then(data => {
                 getquest(data);
             })
             .catch(error => console.error(error));
-    }
+    }*/
 
     return(
         <>
         <div className="choix-guide">
             <select name="guideList" id="guideList" onChange={event => {
-              changeGuide(event.target.value)
-              loadJsonFromServer(event.target.value);
+              changeGuide(event.target.value);
+              getQuest(event.target.value);
+              //loadJsonFromServer(event.target.value);
             } }>
                 <option value="">Choisir un guide</option>
                 {getGuideList()}
@@ -296,10 +406,11 @@ function Questions()
         {inputFamille.map((entry,indexFamille) => {
                 return(
                     <div key={entry.idparc} className='formulairedeLaGE'>
-                        <Famille familleID={entry.idFamille} tabQuestion={entry.question} familleNom={entry.nomFamille}
+                        <Famille familleID={entry.idFamille} tabQuestion={entry.question} familleNom={entry.nomFamille} couleur={entry.couleurFamille}
                         onChangeIDF={createChangeIemeElementIDF(indexFamille)}
                         onChangeTabQuestion={createChangeIemeQuestionTab(indexFamille)}
                         onChangeNomF={createChangeIemeElementNomF(indexFamille)}
+                        onChangeCouleurF={createChangeIemeElementCouleurF(indexFamille)}
                         getotherVal ={getIemeElementOther}></Famille>
                         <button onClick={event => SupprimerFamille(indexFamille)}>Supprimer</button>
                     </div>

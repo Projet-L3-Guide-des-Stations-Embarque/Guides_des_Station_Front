@@ -200,6 +200,16 @@ button:hover , .submitButton:hover{
     text-align: center;
 }
 
+.colorpicker {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
 input {
     border: 1px solid #04AA6D;
     border-radius: 5px;

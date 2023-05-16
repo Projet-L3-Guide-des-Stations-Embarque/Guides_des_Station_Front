@@ -78,6 +78,12 @@ function Famille(props)
         props.onChangeTabQuestion(inputFields)
     }
 
+    const [selectedColor, setSelectedColor] = useState(props.couleur)
+        const handleColorChange = (e) => {
+        setSelectedColor(e.target.value);
+        props.onChangeCouleurF(e.target.value)
+    }
+
     return(
         <>
             Numéro de la famille:
@@ -87,6 +93,7 @@ function Famille(props)
             Nom de la famille:
             <div>
                 <input type='text'name='nomFamille' value={valueNomF} onChange={onChangeNomF}/>
+                <input type='color'id='couleur' name='couleur' value={selectedColor} onChange={handleColorChange} className='colorpicker'/>
             </div>
             <div className="App">
                 <form>
