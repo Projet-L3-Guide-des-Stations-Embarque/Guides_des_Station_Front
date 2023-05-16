@@ -9,7 +9,7 @@ function Stations() {
 
     const [idSuivant, setIdSuivant] = useState(2)
 
-    const [TabStation, setTabStations] = useState([{id:'1', idStation:'', veref:'red', titre: '', elements: [{idSect:'0', titre:'',elements: [{idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]}]}]);
+    const [TabStation, setTabStations] = useState([{id:'1', idStation:'', veref:'white', titre: '', elements: [{idSect:'0', titre:'',elements: [{idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]}]}]);
 
     const [guideActuel, setGuideActuel] = useState('');
     const [guideLoaded, setGuideLoaded] = useState(false)
@@ -44,7 +44,7 @@ function Stations() {
 
     
     const ajouterStation = () => {
-        let newStation = ({id:String(idSuivant), idStation:'', veref:'red', titre: '', elements: [ {idSect:'0',titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}] }] })
+        let newStation = ({id:String(idSuivant), idStation:'', veref:'white', titre: '', elements: [ {idSect:'0',titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}] }] })
         setIdSuivant(idSuivant + 1)
         setTabStations([...TabStation, newStation])
     }
@@ -104,9 +104,9 @@ function Stations() {
 
         const download = (e) => {
             for (const verification in TabStation){
-                if(TabStation[verification].veref == 'red'){
+                if(TabStation[verification].veref == 'red' || TabStation[verification].veref == 'white'){
                     return (
-                        alert("Erreur dans le format d'un nom de station...\nVeuillez corriger l'erreur puis réessayer.\n(Exemple de format à respecter pour le nom d'une station: '1-1 Frênaies-aulnaies marécageuses')")
+                        alert("Erreur dans le format d'un numéro de station...\nVeuillez corriger l'erreur puis réessayer.\n(Exemple de format à respecter pour le numero d'une station: '1-1 Frênaies-aulnaies marécageuses')")
                     )
                 }
             }
