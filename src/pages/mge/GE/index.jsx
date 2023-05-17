@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Plantes from './plantes';
+import Popup from 'reactjs-popup';
 
 function GE (props) {    
     const [valueID, setValueID] = useState(props.geid)
@@ -95,7 +96,32 @@ function GE (props) {
                 onChangeImage={createChangeIemeElementPImage(indexPlante)}
                 onChangeNomFR={createChangeIemeElementPNomFR(indexPlante)}
                 onChangeNomLT={createChangeIemeElementPNomLT(indexPlante)}></Plantes>
-                <button onClick={event => supprimerPlante(indexPlante)}>Supprimer</button>
+                {/* <button onClick={event => supprimerPlante(indexPlante)}>Supprimer</button> */}
+                <Popup
+                            trigger={<button type='button'>Supprimer</button>}
+                            modal
+                            nested
+                            >
+                                {close => (
+                                    <div className="modal">
+                                        <button className="close" onClick={close}>
+                                            &times;
+                                        </button>
+                                        <div className="header"> Confirmation de suppression </div>
+                                        <div className="content">
+                                            {" "}
+                                            Vous vous apprêtez à supprimer une plante.
+                                            Êtes-vous sûr de vouloir continuer?
+                                        </div>
+                                        <div className="actions">
+                                            <button className="validate" onClick={(event) => {close(); supprimerPlante(indexPlante);}}>Valider</button>
+                                            <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </Popup>
             </div>
             )
         })}

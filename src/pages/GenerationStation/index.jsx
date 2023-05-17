@@ -201,7 +201,32 @@ function Stations() {
                         onChangeIDStation={createChangeIemeElementID(indexStation)}
                         onChangeVerefNomStation={createChangeIemeElementVerefNomStation(indexStation)}
                         onChangeTabSections={createChangeIemeElementTabSections(indexStation)}></Station>
-                        <button onClick={event => SupprimerStation(indexStation)}>Supprimer</button>
+                        {/* <button onClick={event => SupprimerStation(indexStation)}>Supprimer</button> */}
+                        <Popup
+                            trigger={<button type='button'>Supprimer</button>}
+                            modal
+                            nested
+                            >
+                                {close => (
+                                    <div className="modal">
+                                        <button className="close" onClick={close}>
+                                            &times;
+                                        </button>
+                                        <div className="header"> Confirmation de suppression </div>
+                                        <div className="content">
+                                            {" "}
+                                            Vous vous apprêtez à supprimer une station.
+                                            Êtes-vous sûr de vouloir continuer?
+                                        </div>
+                                        <div className="actions">
+                                            <button className="validate" onClick={(event) => {close(); SupprimerStation(indexStation);}}>Valider</button>
+                                            <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </Popup>
                     </div>
                     )
             })}

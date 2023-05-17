@@ -215,7 +215,32 @@ function MultiGe () {
                             onChangeID={createChangeIemeElementID(indexGE)} 
                             onChangeNom={createChangeIemeElementNom(indexGE)}
                             onChangeTabP={createChangeIemeElementTabP(indexGE)}></GE>
-                        <button onClick={event => SupprimerGE(indexGE)}>Supprimer</button>
+                        {/* <button onClick={event => SupprimerGE(indexGE)}>Supprimer</button> */}
+                        <Popup
+                            trigger={<button type='button'>Supprimer</button>}
+                            modal
+                            nested
+                            >
+                                {close => (
+                                    <div className="modal">
+                                        <button className="close" onClick={close}>
+                                            &times;
+                                        </button>
+                                        <div className="header"> Confirmation de suppression </div>
+                                        <div className="content">
+                                            {" "}
+                                            Vous vous apprêtez à supprimer un groupe écologique.
+                                            Êtes-vous sûr de vouloir continuer?
+                                        </div>
+                                        <div className="actions">
+                                            <button className="validate" onClick={(event) => {close(); SupprimerGE(indexGE);}}>Valider</button>
+                                            <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </Popup>
                     </div>
                 )
             })}
@@ -240,7 +265,7 @@ function MultiGe () {
                                 Êtes-vous sûr de vouloir continuer?
                             </div>
                             <div className="actions">
-                                <button className="validate" onClick={submit}>Valider</button>
+                                <button className="validate" onClick={event => {close(); submit(event);}}>Valider</button>
                                 <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
                                     Annuler
                                 </button>

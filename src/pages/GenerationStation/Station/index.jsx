@@ -1,5 +1,6 @@
 import Section from './Section';
 import { useState, useEffect } from 'react'
+import Popup from 'reactjs-popup';
 
 function Station(props) {
 
@@ -94,7 +95,32 @@ function Station(props) {
                         <Section nomSection={entryStation.titre} elements={entryStation.elements}
                         onChangeNomSection={createChangeIemeElementNomSection(indexSection)}
                         onChangeTabSections={createChangeIemeElementTabElements(indexSection)}></Section>
-                        <button onClick={event => supprimerSection(indexSection)}>Supprimer</button>
+                        {/* <button onClick={event => supprimerSection(indexSection)}>Supprimer</button> */}
+                        <Popup
+                            trigger={<button type='button'>Supprimer</button>}
+                            modal
+                            nested
+                            >
+                                {close => (
+                                    <div className="modal">
+                                        <button className="close" onClick={close}>
+                                            &times;
+                                        </button>
+                                        <div className="header"> Confirmation de suppression </div>
+                                        <div className="content">
+                                            {" "}
+                                            Vous vous apprêtez à supprimer une section de station.
+                                            Êtes-vous sûr de vouloir continuer?
+                                        </div>
+                                        <div className="actions">
+                                            <button className="validate" onClick={(event) => {close(); supprimerSection(indexSection);}}>Valider</button>
+                                            <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </Popup>
                     </div>
                     )
         })}
