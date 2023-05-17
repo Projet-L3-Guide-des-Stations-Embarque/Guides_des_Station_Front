@@ -376,7 +376,32 @@ function Questions()
                         onChangeNomF={createChangeIemeElementNomF(indexFamille)}
                         onChangeCouleurF={createChangeIemeElementCouleurF(indexFamille)}
                         getotherVal ={getIemeElementOther}></Famille>
-                        <button onClick={event => SupprimerFamille(indexFamille)}>Supprimer</button>
+                        {/* <button onClick={event => SupprimerFamille(indexFamille)}>Supprimer</button> */}
+                        <Popup
+                        trigger={<button type='button'>Supprimer</button>}
+                        modal
+                        nested
+                        >
+                            {close => (
+                                <div className="modal">
+                                    <button className="close" onClick={close}>
+                                        &times;
+                                    </button>
+                                    <div className="header"> Confirmation de suppression </div>
+                                    <div className="content">
+                                        {" "}
+                                        Vous vous apprêtez à supprimer une famille de questions.
+                                        Êtes-vous sûr de vouloir continuer?
+                                    </div>
+                                    <div className="actions">
+                                        <button className="validate" onClick={() => {close(); SupprimerFamille(indexFamille);}}>Valider</button>
+                                        <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
+                                            Annuler
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </Popup>
                     </div>
                 )
         })}

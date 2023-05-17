@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import Popup from 'reactjs-popup'
 
 function Famille(props)
 {
@@ -154,7 +155,32 @@ function Famille(props)
                                     />
                                 </>
                             }
-                            <button onClick={event => removeFields(index, event)}>Supprimer</button>
+                            {/* <button onClick={event => removeFields(index, event)}>Supprimer</button> */}
+                            <Popup
+                            trigger={<button type='button'>Supprimer</button>}
+                            modal
+                            nested
+                            >
+                                {close => (
+                                    <div className="modal">
+                                        <button className="close" onClick={close}>
+                                            &times;
+                                        </button>
+                                        <div className="header"> Confirmation de suppression </div>
+                                        <div className="content">
+                                            {" "}
+                                            Vous vous apprêtez à supprimer une question.
+                                            Êtes-vous sûr de vouloir continuer?
+                                        </div>
+                                        <div className="actions">
+                                            <button className="validate" onClick={(event) => {close(); removeFields(index,event);}}>Valider</button>
+                                            <button className="cancel" onClick={() => {console.log('modal closed '); close(); }}>
+                                                Annuler
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </Popup>
                             <hr></hr>
                         </div>
                     )
