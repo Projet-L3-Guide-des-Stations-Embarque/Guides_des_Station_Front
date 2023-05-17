@@ -250,12 +250,15 @@ function Questions()
                 res.push(add)
                 for (const element in famille.question){
                     const quest = famille.question[element]
-                    const idq = idadd + quest.id
-                    let idouiq = ""
+                    let idq = idadd + quest.id
+                    if(quest.fin == true){
+                        idq = quest.id
+                    }
+                    let idouiq = ''
                     if (quest.idoui != idouiq){
                         idouiq = quest.idoui
                     }
-                    let idnonq = ""
+                    let idnonq = ''
                     if (quest.idnon!= idnonq){
                         idnonq = quest.idnon
                     }
