@@ -27,6 +27,7 @@ function Upload(){
                     select.appendChild(option);
                     setGuideLoaded(true);
                     setNombreGuide(data.length+1);
+                    changeGuide(localStorage.getItem("guideActuel") || '');
                 })
                 .catch(error => console.error(error));
             }
@@ -59,12 +60,22 @@ function Upload(){
         }
     }
 
+    function changeGuide(guide) {
+        localStorage.setItem("guideActuel", guide);
+        setGuideActuel(guide);
+        let select = document.getElementById("guideList");
+        select.value = guide;
+    }
+
     
 
     return(
         <>
         <div className="choix-guide">
-            <select name="guideList" id="guideList" onChange={event => setGuideActuel(event.target.value)}>
+            <select name="guideList" id="guideList" onChange={event => {
+              changeGuide(event.target.value);
+              //loadJsonFromServer(event.target.value);
+            } }>
                 <option value="">Choisir un guide</option>
                 {getGuideList()}
             </select>
@@ -74,7 +85,6 @@ function Upload(){
         <div className='centered'>
             <form>
                 <label>
-                    Fichier: 
                     <input type="file" name="file" />
                 </label>
                 <br />
