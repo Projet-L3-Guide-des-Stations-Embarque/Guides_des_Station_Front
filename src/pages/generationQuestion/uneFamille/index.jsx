@@ -113,7 +113,7 @@ function Famille(props)
                             </div>
                             {(!input.fin) ? 
                             // Lorsque la checkbox est cochée, on affiche les champs pour une question
-                                <>{"Numéro question : "+input.id}
+                                <>{"Numéro question : " + input.id}
                                     <textarea
                                         name='question'
                                         placeholder='Question'

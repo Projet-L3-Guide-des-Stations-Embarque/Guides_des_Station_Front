@@ -182,49 +182,6 @@ function Questions()
             
     }
 
-
-
-    /*const getquest = (jsonQ) => {
-        let res = []
-        let resautre = []
-        for (let parcF =0; parcF<jsonQ.length; parcF++ ){
-            if(jsonQ[parcF].id.length == 1){
-                const newelem = {idparc:jsonQ[parcF].id, idFamille:jsonQ[parcF].id, nomFamille:jsonQ[parcF].question, question: []}
-                res = [...res,newelem]
-            } else{
-                if(jsonQ[parcF].id == "altAdret" || jsonQ[parcF].id == "altUbac"){
-                    resautre.push(jsonQ[parcF])
-                }
-            }
-        }
-        for (let parcsetF=0; parcsetF<res.length; parcsetF++){
-            const idsetF = res[parcsetF].idparc
-            let quest = []
-            for (let parcQ =0; parcQ<jsonQ.length; parcQ++ ){
-                if(jsonQ[parcQ].id.length > 1 && jsonQ[parcQ].id.charAt(0)== idsetF){
-                    let newQuest = {}
-                    if(jsonQ[parcQ].id.length == 2){
-                        newQuest = { id:jsonQ[parcQ].id.charAt(1), question:jsonQ[parcQ].question, fin:jsonQ[parcQ].fin, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'red'}
-                    } else {
-                        if(jsonQ[parcQ].fin == true){
-                            newQuest = { id:jsonQ[parcQ].id, question:jsonQ[parcQ].question, fin:true, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'green'}
-                        } else {
-                            newQuest = { id:jsonQ[parcQ].id, question:jsonQ[parcQ].question, fin:false, idoui: jsonQ[parcQ].idoui, idnon: jsonQ[parcQ].idnon, veref:'red'}
-                        }
-                        }
-                   quest = [...quest,newQuest]
-                    res[parcsetF].question = quest
-                }
-            }
-
-        }
-        setTabAutreRecup(resautre)
-        setIdSuivant(res.length)
-        setFamille(res)
-    }*/
-
-
-
     const submit = (e) => {
         //VERIFICATION CHAMPS CORRECTS
         for (const f in inputFamille){
@@ -263,7 +220,10 @@ function Questions()
                     for (const element in famille.question){
                         //console.log(element)
                         const quest = famille.question[element]
-                        const idq = idadd + quest.id
+                        let idq = idadd + quest.id
+                        if(quest.fin == true){
+                            idq = quest.id
+                        }
                         let idouiq = ''
                         if (quest.idoui!= idouiq){
                             idouiq = quest.idoui
