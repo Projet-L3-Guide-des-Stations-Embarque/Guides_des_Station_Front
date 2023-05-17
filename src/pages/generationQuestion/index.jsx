@@ -10,7 +10,7 @@ function Questions()
     const [idSuivant, setIdSuivant] = useState(1)
     const [tabAutreRecup, setTabAutreRecup] = useState([])
     const [inputFamille, setFamille] = useState([
-            {idparc:'0', idFamille:'0', nomFamille:'', couleurFamille:'#ffffff', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]}
+            {idparc:'0', idFamille:'0', nomFamille:'', couleurFamille:'#000000', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]}
         ]);
 
 
@@ -26,7 +26,7 @@ function Questions()
     }
 
     const ajouterFamille = () => {
-        let newFamille = ( {idparc:String(idSuivant),idFamille:String(idSuivant), nomFamille:'',couleurFamille:'#fffffff', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]})
+        let newFamille = ( {idparc:String(idSuivant),idFamille:String(idSuivant), nomFamille:'',couleurFamille:'#000000', question: [{ id:'a', question: '', fin:false, idoui: '', idnon: '', veref:'red' }]})
         setIdSuivant(idSuivant + 1)
         setFamille([...inputFamille, newFamille])
     }
