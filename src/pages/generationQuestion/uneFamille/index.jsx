@@ -91,9 +91,9 @@ function Famille(props)
                 <input type='text'name='idFamille' value={valueIDF} onChange={onChangeIDF}/>
             </div>
             Nom de la famille:
-            <div>
+            <div className='colorpicker'>
                 <input type='text'name='nomFamille' value={valueNomF} onChange={onChangeNomF}/>
-                <input type='color'id='couleur' name='couleur' value={selectedColor} onChange={handleColorChange} className='colorpicker'/>
+                <input type='color'id='couleur' name='couleur' value={selectedColor} onChange={handleColorChange}/>
             </div>
             <div className="App">
                 <form>

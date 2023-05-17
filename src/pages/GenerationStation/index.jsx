@@ -38,7 +38,7 @@ function Stations() {
             const found = res[setInfo].titre.match(regexp)
             if (found != null){
                 res[setInfo].idStation = found[0]
-                const newTitle = res[setInfo].titre.substring(found[0].length, test.length)
+                const newTitle = res[setInfo].titre.substring(found[0].length, res[setInfo].titre.length)
                 res[setInfo].titre = newTitle
                 res[setInfo].veref = 'green'
             } else {
