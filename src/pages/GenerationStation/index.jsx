@@ -22,6 +22,14 @@ function Stations() {
         let select = document.getElementById("guideList");
         select.value = guide;
     }
+
+    /*const test="1-1 Station de ta mère"
+    const regexp = /[1-9]-[1-9]/g
+    const found = test.match(regexp)
+    console.log("found: " + found)
+    console.log("found[0]: " + found[0])
+    console.log(test.substring(found[0].length,test.length))*/
+
     
     const getStation = (jsonGE) => {
         let res  = jsonGE
@@ -29,8 +37,8 @@ function Stations() {
         for (const setInfo in res){
             const found = res[setInfo].titre.match(regexp)
             if (found != null){
-                res[setInfo].id = found[0]
-                const newTitle = res[setInfo].titre.substring(0,found[0].length -1)
+                res[setInfo].idStation = found[0]
+                const newTitle = res[setInfo].titre.substring(found[0].length, test.length)
                 res[setInfo].titre = newTitle
                 res[setInfo].veref = 'green'
             } else {
