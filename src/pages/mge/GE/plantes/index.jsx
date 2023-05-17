@@ -13,16 +13,20 @@ function Plantes (props) {
     }, [ props.descFR, props.image, props.descLT ])
 
     const onChangeImage = (e) => {
-        let base64string = "";
-        const files = e.target.files;
-        const file = files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () =>{
-            base64string = reader.result;
-            console.log('B64: ' + base64string)
-            
-            props.onChangeImage(base64string)
+        try {
+            let base64string = "";
+            const files = e.target.files;
+            const file = files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () =>{
+                base64string = reader.result;
+                console.log('B64: ' + base64string)
+                
+                props.onChangeImage(base64string)
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
     const onChangeNomFR = (e) => {
