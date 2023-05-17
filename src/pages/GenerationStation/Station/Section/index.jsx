@@ -20,6 +20,13 @@ function Section(props) {
         props.onChangeTabSections(valueTabElements)
     }
 
+    const ajouterElementTitre = () => {
+        let newElement = ({idElem:String(idSuivant),type:'titre',contenu:'',base64:''})
+        setIdSuivant(idSuivant + 1)
+        setValueTabElements([...valueTabElements, newElement])
+        props.onChangeTabSections(valueTabElements)
+    }
+
     const ajouterElementImage = () => {
         let newElement = ({idElem:String(idSuivant),type:'image',contenu:'',base64:''})
         setIdSuivant(idSuivant + 1)
@@ -80,7 +87,8 @@ function Section(props) {
                     )
         })}
         <div className='formulaireFin'>
-            <button onClick={ajouterElementText}>Ajouter un champ texte à la section</button>
+            <button onClick={ajouterElementTitre}>Ajouter un titre à la section</button>
+            <button onClick={ajouterElementText}>Ajouter du texte à la section</button>
             <button onClick={ajouterElementImage}>Ajouter une image à la section</button>
         </div>
         </>

@@ -38,6 +38,15 @@ function Element(props) {
             </div>
             </>
         )
+    } else if(valueTypeElem == "titre"){
+        return (
+            <>
+            Titre:
+            <div>
+                <textarea type='text'name='contenu' value={valueInfoElem} onChange={onChangeTextElement}/>
+            </div>
+            </>
+        )
     } else {
         return (
             <>
