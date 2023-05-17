@@ -14,7 +14,9 @@ function Station(props) {
         setValueNomStation(props.nomStat)
         setValueTabSections(props.sections)
         setIdSuivant(props.sections.length)
-    }, [ props.nomStat, props.sections ])
+        setValueIDStation(props.idS)
+        setValueVerefNStation(props.verf)
+    }, [ props.nomStat, props.sections, props.ids ])
 
     const ajouterSection = () => {
         let newSection = ({idSect:String(idSuivant), titre:'', elements: [ {idElem:'0',type:'texte',contenu:'',base64:''},{idElem:'1',type:'image',contenu:'',base64:''}]})
