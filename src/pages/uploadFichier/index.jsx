@@ -90,7 +90,7 @@ function Upload(){
                 <br />
                 {/* <button onClick={submit}>Envoyer</button> */}
                 <Popup
-                trigger={<button type='button'>EnvoyerTest</button>}
+                trigger={<button type='button'>Envoyer</button>}
                 modal
                 nested
                 >
